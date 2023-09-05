@@ -1,14 +1,19 @@
 import React from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes/MainRouter";
+import { QueryClient, QueryClientProvider } from "react-query";
 
+// Create a client react query client
+const queryClient = new QueryClient();
 const App = () => {
   return (
-    <div className=" bg-base-100">
-      <div className=" w-11/12 mx-auto">
-        <RouterProvider router={router}></RouterProvider>
+    <QueryClientProvider client={queryClient}>
+      <div className=" bg-base-100">
+        <div className=" ">
+          <RouterProvider router={router}></RouterProvider>
+        </div>
       </div>
-    </div>
+    </QueryClientProvider>
   );
 };
 

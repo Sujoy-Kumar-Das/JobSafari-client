@@ -16,10 +16,10 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar flex justify-between sticky top-0 left-0 bg-transparent">
+    <nav className="navbar flex justify-between sticky top-0 left-0 bg-base-200 px-5 z-50">
       <div>
         <a
-          id="#home"
+          
           className={` font-bold cursor-pointer normal-case text-xl hover:text-primary transition-all duration-500  ${
             activeMenuItem === 20 ? " text-primary" : " text-secondary"
           } `}

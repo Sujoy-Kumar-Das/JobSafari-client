@@ -1,0 +1,15 @@
+.jobPostimage{
+    animation: shake 2s ease-in-out infinite 1s;
+}
+
+@keyframes shake {
+    0%{
+        transform: translate(1px,1px);
+    }
+    50%{
+        transform: translate(-1px,-8px);
+    }
+    100%{
+        transform: translate(1px,1px) ;
+    }
+}
