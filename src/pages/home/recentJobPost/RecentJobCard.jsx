@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const RecentJobCard = ({ jobPost }) => {
-  console.log(jobPost);
   const { _id, company, job_title, experience } = jobPost;
   return (
     <div className="bg-base-100 shadow-xl rounded-lg text-secondary ">

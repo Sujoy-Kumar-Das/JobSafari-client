@@ -9,7 +9,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <div className=" bg-base-100">
-        <div className=" ">
+        <div>
           <RouterProvider router={router}></RouterProvider>
         </div>
       </div>

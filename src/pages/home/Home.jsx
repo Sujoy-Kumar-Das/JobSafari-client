@@ -3,6 +3,7 @@ import Banner from "./banner/Banner";
 import HomeCard from "./homeCards/HomeCard";
 import RecentJobPost from "./recentJobPost/RecentJobPost";
 import Testimunial from "./testimunial/Testimunial";
+import DownloadMobileApp from "./downloadMobileApp/DownloadMobileApp";
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
       <HomeCard></HomeCard>
       <RecentJobPost></RecentJobPost>
       <Testimunial></Testimunial>
+      <DownloadMobileApp></DownloadMobileApp>
     </main>
   );
 };

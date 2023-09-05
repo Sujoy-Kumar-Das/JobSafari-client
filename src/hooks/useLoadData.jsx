@@ -5,8 +5,8 @@ import { useQuery } from "react-query";
 const useLoadData = (key, url) => {
   const [loader, setLoader] = useState(false);
 
-  const { data } = useQuery({
-    queryKey: "/job-posts",
+  const { data } = useQuery(url,{
+    queryKey: key,
     queryFn: async () => {
       setLoader(true);
       const res = await fetch(url);

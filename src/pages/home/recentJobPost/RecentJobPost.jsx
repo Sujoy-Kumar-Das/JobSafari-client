@@ -4,15 +4,16 @@ import Loader from "../../shared/loaders/Loader";
 import RecentJobCard from "./RecentJobCard";
 import { Link } from "react-router-dom";
 
-const RecentJobPost = () => {
+const RecentJobPost = ({ setHomePageLader }) => {
   // get job url
   const url = `http://localhost:5000/job-posts?limit=3`;
   // laod all job custom hook
   const [loader, data] = useLoadData("/job-posts", url);
-
+  
   if (loader) {
     return <Loader></Loader>;
   }
+
   return (
     <section className=" my-10">
       <h1 className=" text-3xl lg:text-5xl font-bold text-left mb-5 text-secondary">
