@@ -8,9 +8,9 @@ import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
 // import required modules
 // import { Pagination } from "swiper";
-const Testimunial = ({ setHomePageLader }) => {
+const Testimunial = () => {
   const url = "http://localhost:5000/testimonials";
-  const [loader, data] = useLoadData("/testimonials", url);
+  const [isLoading, data] = useLoadData("/testimonials", url);
 
   let slidePerView = 1;
   if (window.innerWidth >= 1024) {
@@ -18,7 +18,7 @@ const Testimunial = ({ setHomePageLader }) => {
   } else if (window.innerWidth >= 768) {
     slidePerView = 2; // Medium devices (e.g., tablets)
   }
-  if (loader) {
+  if (isLoading) {
     return <Loader></Loader>;
   }
 

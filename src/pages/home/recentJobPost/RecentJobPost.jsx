@@ -4,13 +4,13 @@ import Loader from "../../shared/loaders/Loader";
 import RecentJobCard from "./RecentJobCard";
 import { Link } from "react-router-dom";
 
-const RecentJobPost = ({ setHomePageLader }) => {
+const RecentJobPost = () => {
   // get job url
-  const url = `http://localhost:5000/job-posts?limit=3`;
+  const url = `http://localhost:5000/job-posts?itemsPerPage=3`;
   // laod all job custom hook
-  const [loader, data] = useLoadData("/job-posts", url);
+  const [isLoading, data] = useLoadData("/job-posts", url);
   
-  if (loader) {
+  if (isLoading) {
     return <Loader></Loader>;
   }
 
@@ -26,7 +26,7 @@ const RecentJobPost = ({ setHomePageLader }) => {
           ))}
         </div>
         <div>
-          <Link to={`/job-serarch`}>
+          <Link to={`/job-search`}>
             <button className=" btn btn-primary btn-circle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

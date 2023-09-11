@@ -1,44 +1,42 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
-  const [activeMenuItem, setActiveMenuItem] = useState(null);
   const menuItems = [
-    { id: 1, text: "Home", link: "/" },
+    { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Search", link: "/job-search" },
     { id: 3, text: "Post a Job", link: "/post-job" },
     { id: 4, text: "My Account", link: "/my-profile" },
     { id: 5, text: "My Applications", link: "/my-applications" },
     { id: 6, text: "Blogs", link: "/blogs" },
   ];
-  const handleClick = (itemId) => {
-    setActiveMenuItem(itemId);
-  };
 
   return (
     <nav className="navbar flex justify-between sticky top-0 left-0 bg-base-200 px-5 z-50">
       <div>
-        <a
-          
-          className={` font-bold cursor-pointer normal-case text-xl hover:text-primary transition-all duration-500  ${
-            activeMenuItem === 20 ? " text-primary" : " text-secondary"
-          } `}
-          onClick={() => handleClick(20)}
+        <NavLink
+          className={
+            "font-bold cursor-pointer hover:text-primary transition-all duration-500 text-secondary"
+          }
+          to={"/"}
         >
           JobSafari
-        </a>
+        </NavLink>
       </div>
       <div className=" ">
         <ul className=" hidden gap-x-5  px-1 lg:flex">
           {menuItems.map((item) => (
-            <li
-              key={item.id}
-              onClick={() => handleClick(item.id)}
-              className={` font-bold cursor-pointer hover:text-primary transition-all duration-500 ${
-                activeMenuItem === item.id ? " text-primary" : " text-secondary"
-              }`}
-            >
-              <Link to={item.link}>{item.text}</Link>
+            <li key={item.id} className={` `}>
+              <NavLink
+                className={(navlink) =>
+                  navlink.isActive
+                    ? "text-primary font-bold cursor-pointer"
+                    : "font-bold cursor-pointer hover:text-primary transition-all duration-500 text-secondary"
+                }
+                to={item.link}
+              >
+                {item.text}
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -67,16 +65,17 @@ const Header = () => {
             <div className=" p-4 w-80 min-h-full bg-base-200 text-base-content flex">
               <ul>
                 {menuItems.map((item) => (
-                  <li
-                    key={item.id}
-                    onClick={() => handleClick(item.id)}
-                    className={` font-bold hover:text-primary transition-all duration-500 mb-2 cursor-pointer ${
-                      activeMenuItem === item.id
-                        ? " text-primary"
-                        : " text-secondary"
-                    }`}
-                  >
-                    <Link>{item.text}</Link>
+                  <li key={item.id} className={` `}>
+                    <NavLink
+                      className={(navlink) =>
+                        navlink.isActive
+                          ? "text-primary font-bold cursor-pointer"
+                          : "font-bold cursor-pointer hover:text-primary transition-all duration-500 text-secondary"
+                      }
+                      to={item.link}
+                    >
+                      {item.text}
+                    </NavLink>
                   </li>
                 ))}
               </ul>
