@@ -3,6 +3,7 @@ import MainLayout from "../layouts/MainLayout";
 import Home from "../pages/home/Home";
 import AllJobPosts from "../pages/allJobPosts/AllJobPosts";
 import JobDetail from "../pages/jobDetail/JobDetail";
+import Error from "../pages/shared/error/Error";
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ export const router = createBrowserRouter([
       { path: "/home", element: <Home></Home> },
       { path: "/job-search", element: <AllJobPosts></AllJobPosts> },
       { path: "/job-detail/:id", element: <JobDetail></JobDetail> },
-      { path: "*", element: <h1>Error</h1> },
+      { path: "*", element: <Error></Error> },
     ],
   },
 ]);
