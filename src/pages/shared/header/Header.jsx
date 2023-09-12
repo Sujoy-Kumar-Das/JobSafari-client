@@ -9,6 +9,8 @@ const Header = () => {
     { id: 4, text: "My Account", link: "/my-profile" },
     { id: 5, text: "My Applications", link: "/my-applications" },
     { id: 6, text: "Blogs", link: "/blogs" },
+    { id: 7, text: "Sing up", link: "/resgistration/sing-up" },
+    { id: 8, text: "Sing In", link: "/resgistration/sing-in" },
   ];
 
   return (
