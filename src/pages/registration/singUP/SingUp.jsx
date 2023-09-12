@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import image from "../../../assets/loginBgImage.png";
 import { useForm } from "react-hook-form";
 import Socail from "../social/Socail";
 import { validateImage } from "../../../commonFuntions/validatedImage";
+import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
+import { uploadImage } from "../../../commonFuntions/uploadImage";
+
 const SingUp = () => {
+  // states
+  const [firebaseError, setFirebaseError] = useState(" ");
+  // react form hook
   const {
     register,
     handleSubmit,
@@ -11,8 +17,25 @@ const SingUp = () => {
     reset,
   } = useForm();
 
-  const handleSinup = (data, reset) => {
-    console.log(data);
+  // contexts
+  const { createUser, updateUserInfo } = useContext(AuthContextProvider);
+
+  // handle sinup
+  const handleSignup = async (data, reset) => {
+    try {
+      // upload image
+      const imageUrl = await uploadImage(data.photo, setFirebaseError);
+      const usersInfo = {
+        displayName: data.name,
+        photoURL: imageUrl,
+      };
+      const user = await createUser(data.email, data.password);
+      await updateUserInfo(usersInfo);
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+      setFirebaseError(error.message);
+    }
   };
 
   // validate password validation
@@ -45,7 +68,7 @@ const SingUp = () => {
           <img src={image} className=" w-full lg:w-4/5" />
         </div>
         <div className=" w-full lg:w-1/2">
-          <form onSubmit={handleSubmit(handleSinup)}>
+          <form onSubmit={handleSubmit(handleSignup)}>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -121,6 +144,9 @@ const SingUp = () => {
             </div>
             {errors?.photo && (
               <p className=" mt-1 text-error">{errors?.photo?.message}</p>
+            )}
+            {firebaseError && (
+              <p className=" text-error mt-1">{firebaseError}</p>
             )}
             <input
               type="submit"

@@ -1,5 +1,5 @@
 import React from "react";
-import { BsFacebook, BsGoogle, BsInstagram } from "react-icons/bs";
+import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
 const Socail = () => {
   return (
     <div className=" flex justify-center items-start gap-x-5">
@@ -10,7 +10,7 @@ const Socail = () => {
         <BsFacebook />
       </p>
       <p className=" btn btn-primary btn-circle text-xl">
-        <BsInstagram />
+        <BsTwitter />
       </p>
     </div>
   );

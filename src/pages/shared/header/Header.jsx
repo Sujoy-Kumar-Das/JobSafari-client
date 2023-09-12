@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 
 const Header = () => {
+  // contexts
+  const { user } = useContext(AuthContextProvider);
+  // console.log(user);
   const menuItems = [
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Search", link: "/job-search" },
