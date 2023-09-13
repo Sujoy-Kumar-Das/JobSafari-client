@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Socail from "../social/Socail";
 import { useForm } from "react-hook-form";
 import image from "../../../assets/loginBgImage.png";
 
 const Login = () => {
+  // states
+  const [userType, setUserType] = useState("Job Seeker");
+
+  // hooks
   const {
     register,
     handleSubmit,
@@ -12,7 +16,11 @@ const Login = () => {
   } = useForm();
 
   const handleLogin = (data, reset) => {
-    console.log(data);
+    try {
+      console.log(errors);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <section className=" mt-10 w-4/5 mx-auto">
@@ -21,6 +29,29 @@ const Login = () => {
           <img src={image} className=" w-full lg:w-4/5" />
         </div>
         <div className=" w-full lg:w-1/2">
+          <div className="form-control">
+            <label className="label">
+              <span className="label-text">Choose Your Account Type</span>
+            </label>
+            <div className="flex space-x-4">
+              <button
+                className={`${
+                  userType === "Job Seeker" && "btn-primary"
+                } btn w-1/2 focus:outline-none`}
+                onClick={() => setUserType("Job Seeker")}
+              >
+                Job Seeker
+              </button>
+              <button
+                className={`${
+                  userType === "Recruiter" && "btn-primary"
+                } btn w-1/2 focus:outline-none`}
+                onClick={() => setUserType("Recruiter")}
+              >
+                Recruiter
+              </button>
+            </div>
+          </div>
           <form onSubmit={handleSubmit(handleLogin)}>
             <div className="form-control">
               <label className="label">
