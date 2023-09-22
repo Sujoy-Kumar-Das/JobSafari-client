@@ -7,6 +7,7 @@ import JobDetailCompo from "./JobDetailCompo";
 import { AiOutlineHeart } from "react-icons/ai";
 import { FaHome } from "react-icons/fa";
 import CompannyDetailCompo from "./CompannyDetailCompo";
+import { toast } from "react-toastify";
 
 const JobDetail = () => {
   const { id } = useParams();
@@ -69,7 +70,15 @@ const JobDetail = () => {
       <div>
         <div className="flex justify-between items-start">
           <h1 className=" text-xl lg:text-2xl mb-1">Jobs Opening</h1>
-          <button className=" btn btn-primary rounded-full">Apply now</button>
+          <button
+            onClick={() => {
+              toast.success("hello");
+              console.log("hello")
+            }}
+            className=" btn btn-primary rounded-full"
+          >
+            Apply now
+          </button>
         </div>
         <p className=" text-lg">{data?.jobDetail?.[0].job_title}</p>
       </div>

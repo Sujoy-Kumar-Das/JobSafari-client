@@ -1,12 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Socail from "../social/Socail";
 import { useForm } from "react-hook-form";
 import image from "../../../assets/loginBgImage.png";
+import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
+import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { handleSuccessMessage } from "../../../commonFuntions/handleSuccessMessage";
+import { handleErrorMessage } from "../../../commonFuntions/handleErrorMessage";
 
 const Login = () => {
+  // constexts
+  const { loginUser } = useContext(AuthContextProvider);
+
   // states
   const [userType, setUserType] = useState("Job Seeker");
-
+  const [loading, setLoading] = useState(false);
+  const [firebaseError, setFirebaseError] = useState("");
   // hooks
   const {
     register,
@@ -15,43 +24,36 @@ const Login = () => {
     reset,
   } = useForm();
 
-  const handleLogin = (data, reset) => {
+  const handleLogin = async (data) => {
     try {
-      console.log(errors);
+      setFirebaseError("");
+      setLoading(true);
+
+      // login method
+      const user = await loginUser(data.email, data.password);
+      if (user.user) {
+        handleSuccessMessage(
+          `${user?.user?.displayName} Loged in successfully.`
+        );
+        reset();
+      } else {
+        handleErrorMessage("Something went wrong.Login failed.");
+      }
     } catch (error) {
-      console.log(error);
+      setFirebaseError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
     <section className=" mt-10 w-4/5 mx-auto">
+      <h1 className=" text-3xl text-center uppercase  font-bold">Singin Now</h1>
+
       <div className=" flex lg:flex-row-reverse flex-col justify-around items-center">
         <div className=" w-full lg:w-1/2 flex justify-end">
           <img src={image} className=" w-full lg:w-4/5" />
         </div>
         <div className=" w-full lg:w-1/2">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Choose Your Account Type</span>
-            </label>
-            <div className="flex space-x-4">
-              <button
-                className={`${
-                  userType === "Job Seeker" && "btn-primary"
-                } btn w-1/2 focus:outline-none`}
-                onClick={() => setUserType("Job Seeker")}
-              >
-                Job Seeker
-              </button>
-              <button
-                className={`${
-                  userType === "Recruiter" && "btn-primary"
-                } btn w-1/2 focus:outline-none`}
-                onClick={() => setUserType("Recruiter")}
-              >
-                Recruiter
-              </button>
-            </div>
-          </div>
           <form onSubmit={handleSubmit(handleLogin)}>
             <div className="form-control">
               <label className="label">
@@ -72,6 +74,12 @@ const Login = () => {
             {errors?.email && (
               <p className=" mt-1 text-error">{errors?.email?.message}</p>
             )}
+            {firebaseError && (
+              <p className=" mt-1 text-error">
+                {firebaseError === "Firebase: Error (auth/user-not-found)." &&
+                  "Invalid email address.This email address had no account."}
+              </p>
+            )}
             <div className="form-control">
               <label className="label">
                 <span className="label-text text-secondary">Password</span>
@@ -89,13 +97,39 @@ const Login = () => {
             {errors?.password && (
               <p className=" mt-1 text-error">{errors?.password?.message}</p>
             )}
-
-            <input
-              type="submit"
-              value="Sing up"
-              className=" btn btn-primary w-full mt-5"
-            />
+            {firebaseError && (
+              <p className=" text-error mt-1">
+                {firebaseError === "Firebase: Error (auth/wrong-password)." &&
+                  "Wrong password"}
+              </p>
+            )}
+            <button className={`btn w-full mt-5 btn-primary`}>
+              {loading ? (
+                <>
+                  <span>Singed in</span>
+                  <span className=" loading loading-dots loading-sm"></span>
+                </>
+              ) : (
+                "Sing In"
+              )}
+            </button>
           </form>
+          <label className="label">
+            <span className="label-text">
+              Forgot Password ? want to{" "}
+              <Link to={"/registration/reset-password"} className=" btn-link">
+                reset now
+              </Link>
+            </span>
+          </label>
+          <label className="label">
+            <span className="label-text">
+              New to Doctors Portal?{" "}
+              <Link to={"/registration/singup"} className=" btn-link">
+                Create new account
+              </Link>
+            </span>
+          </label>
           <div className="divider">OR</div>
           <Socail />
         </div>

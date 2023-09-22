@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode, Pagination } from "swiper/modules";
 
@@ -6,12 +6,18 @@ import "swiper/css";
 import "swiper/css/pagination";
 import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
-// import required modules
-// import { Pagination } from "swiper";
+import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 const Testimunial = () => {
+  // contexts
+  const { setLoading } = useContext(AuthContextProvider);
+
+  // load data url
   const url = "http://localhost:5000/testimonials";
+
+  // laod data by custom hook
   const [isLoading, data] = useLoadData("/testimonials", url);
 
+  // responsive slider
   let slidePerView = 1;
   if (window.innerWidth >= 1024) {
     slidePerView = 4; // Large devices (e.g., desktop)
@@ -21,7 +27,9 @@ const Testimunial = () => {
   if (isLoading) {
     return <Loader></Loader>;
   }
-
+  if (!isLoading) {
+    setLoading(false);
+  }
   return (
     <section className=" my-20">
       <div className="text-center mb-5 text-secondary">

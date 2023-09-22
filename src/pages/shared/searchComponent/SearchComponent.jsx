@@ -1,37 +1,21 @@
-import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-const SearchComponent = ({
-  setJobPosts,
-  setError,
-  setLoader,
-  setSearchResult,
-}) => {
-// react hook form
+const SearchComponent = ({ fristDataName, secondDataName }) => {
+  // react hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
-
   // search form handler
+  const navigate = useNavigate();
   const searchFormHandler = async (data) => {
-    setLoader(true);
-    setError("");
-    const location = data.location;
-    const jobTitle = data.jobTitle;
-    const url = `http://localhost:5000/search-job?jobTitle=${jobTitle}&location=${location}`;
-    const res = await fetch(url);
-    const jobsData = await res.json();
-    if (!jobsData?.success) {
-      setError(jobsData?.message);
-      setJobPosts([]);
-      setLoader(false);
-      return;
-    }
-    setJobPosts([...jobsData.jobs]);
-    setLoader(false);
-    setSearchResult(true);
+    navigate(
+      `/job-search?param1=${data.fristDataName}&param2=${data.secondDataName}`
+    );
+    reset();
   };
   return (
     <form
@@ -42,21 +26,27 @@ const SearchComponent = ({
         <input
           type="text"
           placeholder={`${
-            errors?.jobTitle ? errors?.jobTitle?.message : "Job Title"
+            errors?.fristDataName
+              ? errors?.fristDataName?.message
+              : `${fristDataName}`
           }`}
           className=" input rounded-s-full ps-5 bg-base-200 w-full"
-          {...register("jobTitle", { required: "Please Enter A Job Title." })}
+          {...register(`fristDataName`, {
+            required: `Please Enter Your ${fristDataName}`,
+          })}
         />
       </div>
       <div>
         <input
           type="text"
           placeholder={`${
-            errors?.location ? errors?.location?.message : "Location"
+            errors?.secondDataName
+              ? errors?.secondDataName?.message
+              : `${secondDataName}`
           }`}
           className="bg-base-200 input border-s-2 border-e-2 border-t-0  border-b-0 border-gray-500 rounded-none w-full"
-          {...register("location", {
-            required: "Location help you for better seacrh",
+          {...register(`secondDataName`, {
+            required: `${secondDataName} help you for better seacrh`,
           })}
         />
       </div>

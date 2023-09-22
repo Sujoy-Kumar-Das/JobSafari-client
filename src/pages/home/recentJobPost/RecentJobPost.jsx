@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
-import RecentJobCard from "./RecentJobCard";
 import { Link } from "react-router-dom";
+import MapCardCompo from "../../../components/MapCardCompo/MapCardCompo";
+import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 
 const RecentJobPost = () => {
+  // contexts
+  const { setLoading } = useContext(AuthContextProvider);
+
   // get job url
-  const url = `http://localhost:5000/job-posts?itemsPerPage=3`;
+  const url = `http://localhost:5000/job-posts?limit=3`;
+
   // laod all job custom hook
   const [isLoading, data] = useLoadData("/job-posts", url);
-  
+
+  // loading component
   if (isLoading) {
     return <Loader></Loader>;
   }
 
+  if (isLoading) {
+    setLoading(false);
+  }
   return (
     <section className=" my-10">
       <h1 className=" text-3xl lg:text-5xl font-bold text-left mb-5 text-secondary">
@@ -21,12 +30,10 @@ const RecentJobPost = () => {
       </h1>
       <div className=" w-full flex flex-col lg:flex-row justify-between items-center gap-5">
         <div className=" grid grid-cols-1 lg:grid-cols-3 w-full gap-x-5 gap-y-10">
-          {data?.jobPosts?.map((jobPost) => (
-            <RecentJobCard key={jobPost._id} jobPost={jobPost}></RecentJobCard>
-          ))}
+          <MapCardCompo items={data?.jobPosts}></MapCardCompo>
         </div>
         <div>
-          <Link to={`/job-search`}>
+          <Link to={`/job-posts`}>
             <button className=" btn btn-primary btn-circle">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

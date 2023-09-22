@@ -5,14 +5,14 @@ import Socail from "../social/Socail";
 import { validateImage } from "../../../commonFuntions/validatedImage";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { uploadImage } from "../../../commonFuntions/uploadImage";
-import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { storeUsersInfo } from "../../../commonFuntions/storeUser";
+import { handleSuccessMessage } from "../../../commonFuntions/handleSuccessMessage";
+import { handleErrorMessage } from "../../../commonFuntions/handleErrorMessage";
 
 const SingUp = () => {
   // states
   const [firebaseError, setFirebaseError] = useState(""); // fire base errors state
-  const [error, setError] = useState(""); // errors state
   const [userType, setUserType] = useState("Job Seeker"); // users type state
   const [loading, setLoading] = useState(false);
   const [accept, setAccpet] = useState(false);
@@ -31,37 +31,45 @@ const SingUp = () => {
   // handle sinup
   const handleSignup = async (data) => {
     try {
-      // reset errors
       setLoading(true);
       setFirebaseError("");
-      setError("");
 
-      // create user method
-      const user = await createUser(data.email, data.password);
-
-      // upload image
-      const imageUrl = await uploadImage(data.photo, setFirebaseError);
-
-      // user information for updaed profile
-      const usersInfo = {
+      // Create user and upload image in parallel
+      const [userCreation, imageUrl] = await Promise.all([
+        createUser(data.email, data.password),
+        uploadImage(data.photo, setFirebaseError),
+      ]);
+      // User information for updated profile
+      const userInfo = {
         displayName: data.name,
         photoURL: imageUrl,
       };
+      // Update user information
+      await updateUserInfo(userInfo);
 
-      // update user method
-      await updateUserInfo(usersInfo);
+      // user data for store
+      const userData = {
+        name: data.name,
+        email: data.email,
+        image: imageUrl,
+        role: userType,
+        post: data.post,
+      };
+      // Store user information
+      const result = await storeUsersInfo(userData);
 
-      // store user
-      await storeUsersInfo(data.name, data.email, userType, setError);
-      console.log(user);
-      // reset states
-      setLoading(false);
-      setAccpet(false);
-
-      // reset form
-      reset();
+      if (result.success) {
+        handleSuccessMessage(result.message);
+        setAccpet(false);
+        reset();
+      } else {
+        handleErrorMessage(result.message);
+        setAccpet(false);
+      }
     } catch (error) {
       setFirebaseError(error.message);
+      console.log(error);
+    } finally {
       setLoading(false);
       setAccpet(false);
     }
@@ -90,12 +98,9 @@ const SingUp = () => {
     return true;
   };
 
-  // store user
-
   return (
-    <section className=" w-11/12 lg:w-4/5 mx-auto mt-10">
+    <section className=" w-11/12 lg:w-4/5 mx-auto mt-10 pb-5">
       <h1 className=" text-3xl text-center uppercase  font-bold">Singup Now</h1>
-
       <div className=" flex lg:flex-row-reverse flex-col justify-around items-center">
         <div className=" w-full lg:w-1/2 flex justify-end">
           <img src={image} className=" w-full lg:w-4/5" />
@@ -126,13 +131,7 @@ const SingUp = () => {
           </div>
           <form onSubmit={handleSubmit(handleSignup)}>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">
-                  {userType === "Job Seeker"
-                    ? "Job Seeker's Name"
-                    : "Recruiter's Name "}
-                </span>
-              </label>
+              <label className="label">Name</label>
               <input
                 type="text"
                 placeholder="Enter Your Name"
@@ -146,17 +145,28 @@ const SingUp = () => {
             {errors?.name && (
               <p className=" mt-1 text-error">{errors?.name?.message}</p>
             )}
+            {userType === "Job Seeker" && (
+              <>
+                <div className="form-control">
+                  <label className="label">Post</label>
+                  <input
+                    type="text"
+                    placeholder="Enter Your Post"
+                    className={`input input-bordered ${
+                      errors?.post?.message &&
+                      " input-error placeholder-error border-error"
+                    }`}
+                    {...register("post", { required: "Post Is Required." })}
+                  />
+                </div>
+                {errors?.post && (
+                  <p className=" mt-1 text-error">{errors?.post?.message}</p>
+                )}
+              </>
+            )}
+
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">
-                  {" "}
-                  <span className="label-text">
-                    {userType === "Job Seeker"
-                      ? "Job Seeker's Email"
-                      : "Recruiter's Email "}
-                  </span>
-                </span>
-              </label>
+              <label className="label">Email</label>
               <input
                 type="email"
                 placeholder="Enter Your Email Address"
@@ -236,12 +246,14 @@ const SingUp = () => {
               </label>
             </div>
             <button
-              className={` btn  w-full mt-5 ${
-                accept ? "btn-primary" : "btn-disabled"
-              }`}
+              className={` btn  w-full mt-5 btn-primary `}
+              disabled={!accept}
             >
               {loading ? (
-                <span className=" loading loading-spinner"></span>
+                <>
+                  <span>Creating Account</span>
+                  <span className=" loading loading-dots loading-sm"></span>
+                </>
               ) : (
                 "Sing up"
               )}
@@ -256,7 +268,7 @@ const SingUp = () => {
             </span>
           </label>
           <div className="divider">OR</div>
-          <Socail />
+          <Socail setFirebaseError={setFirebaseError} />
         </div>
       </div>
     </section>

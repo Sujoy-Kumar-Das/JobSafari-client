@@ -1,9 +1,18 @@
 import React from "react";
 import image from "../../../assets/girlimage.png";
 import { Link } from "react-router-dom";
+import SearchComponent from "../../shared/searchComponent/SearchComponent";
+import { motion } from "framer-motion";
+
 const Banner = () => {
   return (
-    <section className=" my-10">
+    <motion.section
+      className=" my-10"
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 100 }}
+      transition={{ duration: 1 }}
+    >
       <div className=" lg:h-screen w-full flex justify-center items-center ">
         <div className=" flex lg:flex-row-reverse flex-col justify-around items-center">
           <div className=" w-full lg:w-1/2 flex justify-end">
@@ -20,28 +29,16 @@ const Banner = () => {
               opportunities that match your skills and passions. Don't
               wait—begin your path to success today!
             </p>
-
-            <Link to={"/job-search"} className=" btn btn-primary rounded-full">
-              Find Your Dream Job{" "}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                />
-              </svg>
-            </Link>
+            <div className=" my-2 lg:my-5  mx-auto  bg-base-200 rounded-full flex justify-center items-center p-1">
+              <SearchComponent
+                fristDataName="Job Title"
+                secondDataName="Location"
+              ></SearchComponent>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

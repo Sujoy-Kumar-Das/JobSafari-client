@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const AllJobPostCard = ({ jobPost }) => {
-  const { _id, company, job_title, experience } = jobPost;
+const JobPostCard = ({item}) => {
+  const { _id, company, job_title, experience } = item;
   return (
     <div className="bg-base-100 border-2 border-secondary rounded-lg text-secondary flex justify-center items-end ">
       <div className="card-body">
@@ -20,4 +20,4 @@ const AllJobPostCard = ({ jobPost }) => {
   );
 };
 
-export default AllJobPostCard;
+export default JobPostCard;

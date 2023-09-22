@@ -1,17 +1,62 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
-const Socail = () => {
+import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
+import { storeUsersInfo } from "../../../commonFuntions/storeUser";
+import { handleSuccessMessage } from "../../../commonFuntions/handleSuccessMessage";
+import { handleErrorMessage } from "../../../commonFuntions/handleErrorMessage";
+const Socail = ({ setFirebaseError }) => {
+  // constexts
+  const { singInWithGoogle, singInWithFacebook } =
+    useContext(AuthContextProvider);
+
+  // google handler
+  const handleGoogleSingIn = async () => {
+    try {
+      const user = await singInWithGoogle();
+      const userData = {
+        name: user.user.displayName,
+        email: user.user.email,
+        image: user.user.photoURL,
+        role: "Job Seeker",
+        post: "not mentioned",
+      };
+      const result = await storeUsersInfo(userData);
+      if (result?.success) {
+        handleSuccessMessage(result.message);
+      } else {
+        handleErrorMessage(result.message);
+      }
+    } catch (error) {
+      setFirebaseError(error.message);
+    }
+  };
+
+  // facebook handler
+  const handleFacebookSingIn = async () => {
+    try {
+      const user = await singInWithFacebook();
+      console.log(user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className=" flex justify-center items-start gap-x-5">
-      <p className=" btn btn-primary btn-circle text-xl ">
+      <button
+        onClick={handleGoogleSingIn}
+        className=" btn btn-primary btn-circle text-xl "
+      >
         <BsGoogle />
-      </p>
-      <p className=" btn btn-primary btn-circle text-xl">
+      </button>
+      <button
+        onClick={handleFacebookSingIn}
+        className=" btn btn-primary btn-circle text-xl"
+      >
         <BsFacebook />
-      </p>
-      <p className=" btn btn-primary btn-circle text-xl">
+      </button>
+      <button className=" btn btn-primary btn-circle text-xl">
         <BsTwitter />
-      </p>
+      </button>
     </div>
   );
 };
