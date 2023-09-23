@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
-import { handleSuccessMessage } from "../../../commonFuntions/handleSuccessMessage";
+import { successMessage } from "../../../commonFuntions/successMessage";
 
 const Header = () => {
   // contexts
@@ -12,8 +12,7 @@ const Header = () => {
     { id: 3, text: "Post a Job", link: "/post-job" },
     { id: 4, text: "My Account", link: "/my-profile" },
     { id: 5, text: "My Applications", link: "/my-applications" },
-    { id: 6, text: "Find Peoples", link: "/find-peoples" },
-    { id: 7, text: "Blogs", link: "/blogs" },
+    { id: 6, text: "Blogs", link: "/blogs" },
     {
       id: 8,
       text: "Sing up",
@@ -31,7 +30,7 @@ const Header = () => {
   // logout
   const handleLogOut = () => {
     logOutUser().then(() => {
-      handleSuccessMessage(`Logout succesfully`);
+      successMessage(`Logout succesfully`);
     });
   };
   return (

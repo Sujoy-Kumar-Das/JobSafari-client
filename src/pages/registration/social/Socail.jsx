@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { storeUsersInfo } from "../../../commonFuntions/storeUser";
-import { handleSuccessMessage } from "../../../commonFuntions/handleSuccessMessage";
-import { handleErrorMessage } from "../../../commonFuntions/handleErrorMessage";
+import { errorMessage } from "../../../commonFuntions/errorMessage";
+import { successMessage } from "../../../commonFuntions/successMessage";
 const Socail = ({ setFirebaseError }) => {
   // constexts
   const { singInWithGoogle, singInWithFacebook } =
@@ -22,9 +22,9 @@ const Socail = ({ setFirebaseError }) => {
       };
       const result = await storeUsersInfo(userData);
       if (result?.success) {
-        handleSuccessMessage(result.message);
+        successMessage(result.message);
       } else {
-        handleErrorMessage(result.message);
+        errorMessage(result.message);
       }
     } catch (error) {
       setFirebaseError(error.message);

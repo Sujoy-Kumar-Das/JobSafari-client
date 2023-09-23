@@ -6,9 +6,9 @@ import Error from "../pages/shared/error/Error";
 import SingUp from "../pages/registration/singUP/SingUp";
 import Login from "../pages/registration/login/Login";
 import ResgistrationLayout from "../layouts/ResgistrationLayout";
-import FindPeople from "../pages/findPeople/FindPeople";
 import SearchResultCompo from "../pages/shared/searchResult/SearchResultCompo";
 import AllJobPosts from "../pages/allJobPosts/AllJobPosts";
+import PostJob from "../pages/postJob/PostJob";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
       { path: "/home", element: <Home></Home> },
       { path: "/job-posts", element: <AllJobPosts></AllJobPosts> },
       { path: "/job-detail/:id", element: <JobDetail></JobDetail> },
-      { path: "/find-peoples", element: <FindPeople></FindPeople> },
+      { path: "/post-job", element: <PostJob></PostJob> },
       {
         path: "/job-search",
         element: <SearchResultCompo></SearchResultCompo>,

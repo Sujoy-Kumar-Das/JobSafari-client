@@ -20,8 +20,8 @@ const AllJobPosts = () => {
   const totalPage = Math.ceil(totalData / itemsPerPage);
 
   return (
-    <section className=" w-11/12 mx-auto mb-20 mt-10">
-      <div className=" my-2 lg:my-5 w-3/5 mx-auto  bg-base-200 rounded-full flex justify-center items-center p-1">
+    <section>
+      <div className=" my-2 lg:my-5 w-full lg:w-3/5  mx-auto  bg-base-200 rounded-full flex justify-center items-center p-1">
         <SearchComponent
           fristDataName="Job Title"
           secondDataName="Location"

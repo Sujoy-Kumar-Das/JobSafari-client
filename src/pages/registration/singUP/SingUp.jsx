@@ -7,8 +7,8 @@ import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { uploadImage } from "../../../commonFuntions/uploadImage";
 import { Link } from "react-router-dom";
 import { storeUsersInfo } from "../../../commonFuntions/storeUser";
-import { handleSuccessMessage } from "../../../commonFuntions/handleSuccessMessage";
-import { handleErrorMessage } from "../../../commonFuntions/handleErrorMessage";
+import { errorMessage } from "../../../commonFuntions/errorMessage";
+import { successMessage } from "../../../commonFuntions/successMessage";
 
 const SingUp = () => {
   // states
@@ -59,11 +59,11 @@ const SingUp = () => {
       const result = await storeUsersInfo(userData);
 
       if (result.success) {
-        handleSuccessMessage(result.message);
+        successMessage(result.message);
         setAccpet(false);
         reset();
       } else {
-        handleErrorMessage(result.message);
+        errorMessage(result.message);
         setAccpet(false);
       }
     } catch (error) {
@@ -99,7 +99,7 @@ const SingUp = () => {
   };
 
   return (
-    <section className=" w-11/12 lg:w-4/5 mx-auto mt-10 pb-5">
+    <section className="pb-5">
       <h1 className=" text-3xl text-center uppercase  font-bold">Singup Now</h1>
       <div className=" flex lg:flex-row-reverse flex-col justify-around items-center">
         <div className=" w-full lg:w-1/2 flex justify-end">

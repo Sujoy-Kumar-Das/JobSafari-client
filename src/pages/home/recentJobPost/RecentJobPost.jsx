@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
-import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
 import { Link } from "react-router-dom";
 import MapCardCompo from "../../../components/MapCardCompo/MapCardCompo";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
+import useLoadData from "../../../hooks/useLoadData";
 
 const RecentJobPost = () => {
   // contexts
   const { setLoading } = useContext(AuthContextProvider);
 
   // get job url
-  const url = `http://localhost:5000/job-posts?limit=3`;
+  const url = `http://localhost:5000/job-posts?perPageItem=3`;
 
   // laod all job custom hook
   const [isLoading, data] = useLoadData("/job-posts", url);

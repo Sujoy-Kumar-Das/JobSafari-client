@@ -7,7 +7,7 @@ import DownloadMobileApp from "./downloadMobileApp/DownloadMobileApp";
 
 const Home = () => {
   return (
-    <main className="w-11/12 mx-auto">
+    <main>
       <Banner></Banner>
       <HomeCard></HomeCard>
       <RecentJobPost></RecentJobPost>

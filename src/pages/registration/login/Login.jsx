@@ -5,8 +5,8 @@ import image from "../../../assets/loginBgImage.png";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { handleSuccessMessage } from "../../../commonFuntions/handleSuccessMessage";
-import { handleErrorMessage } from "../../../commonFuntions/handleErrorMessage";
+import { errorMessage } from "../../../commonFuntions/errorMessage";
+import { successMessage } from "../../../commonFuntions/successMessage";
 
 const Login = () => {
   // constexts
@@ -32,12 +32,12 @@ const Login = () => {
       // login method
       const user = await loginUser(data.email, data.password);
       if (user.user) {
-        handleSuccessMessage(
+        successMessage(
           `${user?.user?.displayName} Loged in successfully.`
         );
         reset();
       } else {
-        handleErrorMessage("Something went wrong.Login failed.");
+        errorMessage("Something went wrong.Login failed.");
       }
     } catch (error) {
       setFirebaseError(error.message);
