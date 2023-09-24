@@ -46,7 +46,7 @@ const Login = () => {
     }
   };
   return (
-    <section className=" mt-10 w-4/5 mx-auto">
+    <section>
       <h1 className=" text-3xl text-center uppercase  font-bold">Singin Now</h1>
 
       <div className=" flex lg:flex-row-reverse flex-col justify-around items-center">

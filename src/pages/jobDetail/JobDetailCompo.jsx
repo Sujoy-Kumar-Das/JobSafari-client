@@ -23,7 +23,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Date Posted</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].deadline}</p>
+              <p className=" text-sm">{data?.jobDetail?.[0].datePosted}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center">

@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { errorMessage } from "../../commonFuntions/errorMessage";
+import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
+import { successMessage } from "../../commonFuntions/successMessage";
 
 const PostJob = () => {
+  // contexts
+  const { user } = useContext(AuthContextProvider);
   // react form hook
   const {
     register,
@@ -13,6 +17,7 @@ const PostJob = () => {
   //   states
   const [experienceFields, setExperienceFields] = useState([""]);
   const [skillsFields, setSkillsField] = useState([""]);
+  const [loading, setLoading] = useState(false);
   // handle dynamic field
   const handelDynamicField = (arrary, setArray) => {
     setArray([...arrary, ""]);
@@ -29,12 +34,57 @@ const PostJob = () => {
       setArray(newInputValus);
     }
   };
+
   // handle post job
-  const handlePostJob = (data) => {
-    // console.log(data);
+
+  const handlePostJob = async (data) => {
+    setLoading(true);
+    // job post data
+    const jobPostData = {
+      job_title: data.jobTitle,
+      company: user.displayName,
+      email: user.email,
+      location: data.location,
+      requirements: data.requirments,
+      education: data.education ? data.education : "All Background",
+      skills: data.skills,
+      experience: data.experience
+        ? data.experience
+        : "No Experienc. Fresher can apply",
+      datePosted: new Date().toISOString().split("T")[0],
+      deadline: data.date,
+      how_to_apply: `Send your resume and a legal writing sample to ${user.email}`,
+      Career_level: data.careerLevel,
+      quantity: data.quantity,
+      salary: data.salary,
+      Founded_in: data.founed ? data.founed : "Not mentioned",
+      categories: data.categories ? data.categories : "Not mentioned",
+      company_size: data.companySize ? data.companySize : "Not mentioned",
+      description: data.description,
+    };
+
+    // post url
+    const url = `http://localhost:5000/post-job`;
+
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jobPostData),
+    });
+    const postResponse = await res.json();
+    if (postResponse.success) {
+      successMessage(postResponse.message);
+      setLoading(false);
+      reset();
+    } else {
+      errorMessage(postResponse.message);
+      setLoading(false);
+    }
   };
   return (
-    <section className="pb-5 text-secondary">
+    <section className="pb-5">
       <form onSubmit={handleSubmit(handlePostJob)}>
         <div className="  w-full lg:w-4/5 mx-auto ">
           <div className="flex flex-col lg:flex-row items-center justify-between">
@@ -97,18 +147,18 @@ const PostJob = () => {
               <p className="ps-1">Location help you find nearest employs.</p>
             </div>
             <input
-              type="text"
+              type="address"
               placeholder={`${
-                errors?.loction
-                  ? errors?.loction?.message
-                  : "Enter Your Job Description"
+                errors?.location
+                  ? errors?.location?.message
+                  : "Enter Your Job Location"
               }`}
               className={`input input-bordered w-full lg:w-1/2 ${
-                errors?.loction?.message &&
+                errors?.location?.message &&
                 " input-error placeholder-error border-error"
               }`}
-              {...register("loction", {
-                required: "Location is Required",
+              {...register("location", {
+                required: "location is Required",
               })}
             />
           </div>
@@ -118,11 +168,11 @@ const PostJob = () => {
         <div className=" w-full lg:w-4/5 mx-auto">
           <div className="  flex flex-col lg:flex-row items-center justify-between">
             <div className=" w-full lg:w-2/5 mb-2 lg:mb-0">
-              <label className="label">Salary</label>
+              <label className="label">Salary Range</label>
               <p className="ps-1"> Please enter a salary range .</p>
             </div>
             <input
-              type="number"
+              type="text"
               placeholder={`${
                 errors?.salary
                   ? errors?.salary?.message
@@ -161,7 +211,27 @@ const PostJob = () => {
           </div>
           <div className=" divider"></div>
         </div>
-
+        <div className=" w-full lg:w-4/5 mx-auto">
+          <div className="  flex flex-col lg:flex-row items-center justify-between">
+            <div className=" w-full lg:w-2/5 mb-2 lg:mb-0">
+              <label className="label">Education</label>
+              <p className="ps-1">
+                {" "}
+                Education will help you to find the exact candidate.
+              </p>
+            </div>
+            <input
+              type="text"
+              placeholder="Enter How Much Experience You Required."
+              className={`input input-bordered w-full lg:w-1/2 ${
+                errors?.education?.message &&
+                " input-error placeholder-error border-error"
+              }`}
+              {...register("education")}
+            />
+          </div>
+          <div className=" divider"></div>
+        </div>
         <div className=" w-full lg:w-4/5 mx-auto">
           <div className="  flex flex-col lg:flex-row items-center justify-between">
             <div className=" w-full lg:w-2/5 mb-2 lg:mb-0">
@@ -330,10 +400,15 @@ const PostJob = () => {
           </div>
           <div className=" divider"></div>
         </div>
-        <div className=" flex justify-center">
-          <button className=" btn btn-primary" type="submit">
-            Post
-          </button>
+        <div className=" flex justify-center w-full lg:w-1/5 mx-auto">
+          {loading ? (
+            <button className="btn btn-primary w-full">
+              Uploading
+              <span className="loading loading-spinner"></span>
+            </button>
+          ) : (
+            <button className=" btn btn-primary  w-full">Post</button>
+          )}
         </div>
       </form>
     </section>

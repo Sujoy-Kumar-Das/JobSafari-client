@@ -18,7 +18,6 @@ const AllJobPosts = () => {
   const [isLoading, data] = useLoadData("/job-posts", url);
   const totalData = data?.count;
   const totalPage = Math.ceil(totalData / itemsPerPage);
-
   return (
     <section>
       <div className=" my-2 lg:my-5 w-full lg:w-3/5  mx-auto  bg-base-200 rounded-full flex justify-center items-center p-1">

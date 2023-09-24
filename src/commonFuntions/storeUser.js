@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import { errorMessage } from "./errorMessage";
 
 export const storeUsersInfo = async (userData) => {
   try {
@@ -15,6 +16,6 @@ export const storeUsersInfo = async (userData) => {
     const data = await res.json();
     return data;
   } catch (error) {
-    toast.error(error.message);
+    errorMessage(error.message);
   }
 };

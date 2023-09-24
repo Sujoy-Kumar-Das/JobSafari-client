@@ -16,14 +16,12 @@ const JobDetail = () => {
   const url = `http://localhost:5000/job-detail/${id}`; //   url for laod job detail
 
   const [isLoading, data] = useLoadData("/job-detail", url); // load data custom hook
-
   if (isLoading) {
     return <Loader></Loader>;
   }
   if (!data?.success) {
     return <Error message={data?.message}></Error>;
   }
-  console.log(data.jobDetail[0]);
   return (
     <section className=" w-4/5 lg:w-2/5 mx-auto my-10 text-secondary">
       <div className=" flex justify-between items-start w-full">
@@ -73,7 +71,7 @@ const JobDetail = () => {
           <button
             onClick={() => {
               toast.success("hello");
-              console.log("hello")
+              console.log("hello");
             }}
             className=" btn btn-primary rounded-full"
           >
