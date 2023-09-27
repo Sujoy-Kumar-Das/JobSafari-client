@@ -9,7 +9,7 @@ const MyExperience = ({ experienceFields, setExperienceField }) => {
   };
 
   //   handle delete experience field
-  const handleDeleteExperienceField = (id, arrary, setArray) => {
+  const handleDeleteExperienceField = (id ) => {
     const fieldLength = experienceFields.length;
     if (fieldLength == 1) {
       return errorMessageHandeler("You can't delete all requirments fields.");
@@ -21,9 +21,9 @@ const MyExperience = ({ experienceFields, setExperienceField }) => {
   };
 
   // handle change field data
-  const handleChange = (e, index, fieldKey) => {
+  const handleChange = (value, index, fieldKey) => {
     const updatedFields = [...experienceFields];
-    updatedFields[index][fieldKey] = e;
+    updatedFields[index][fieldKey] = value;
     setExperienceField(updatedFields);
   };
   return (
