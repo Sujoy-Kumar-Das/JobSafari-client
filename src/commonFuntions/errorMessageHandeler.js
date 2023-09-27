@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-export const errorMessage = (message) => {
+export const errorMessageHandeler = (message) => {
   Swal.fire({
     position: "top",
     icon: "error",

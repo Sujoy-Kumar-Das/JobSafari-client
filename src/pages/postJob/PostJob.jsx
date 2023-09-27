@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { errorMessage } from "../../commonFuntions/errorMessage";
+import { errorMessageHandeler } from "../../commonFuntions/errorMessageHandeler";
 import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
 import { successMessage } from "../../commonFuntions/successMessage";
 
@@ -18,6 +18,7 @@ const PostJob = () => {
   const [experienceFields, setExperienceFields] = useState([""]);
   const [skillsFields, setSkillsField] = useState([""]);
   const [loading, setLoading] = useState(false);
+
   // handle dynamic field
   const handelDynamicField = (arrary, setArray) => {
     setArray([...arrary, ""]);
@@ -27,7 +28,7 @@ const PostJob = () => {
   const handleFieldDelete = (id, arrary, setArray) => {
     const fieldLength = arrary.length;
     if (fieldLength == 1) {
-      return errorMessage("You can't delete all requirments fields.");
+      return errorMessageHandeler("You can't delete all requirments fields.");
     } else {
       const newInputValus = [...arrary];
       newInputValus.splice(id, 1);
@@ -79,7 +80,7 @@ const PostJob = () => {
       setLoading(false);
       reset();
     } else {
-      errorMessage(postResponse.message);
+      errorMessageHandeler(postResponse.message);
       setLoading(false);
     }
   };

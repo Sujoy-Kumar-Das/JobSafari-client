@@ -9,6 +9,9 @@ import ResgistrationLayout from "../layouts/ResgistrationLayout";
 import SearchResultCompo from "../pages/shared/searchResult/SearchResultCompo";
 import AllJobPosts from "../pages/allJobPosts/AllJobPosts";
 import PostJob from "../pages/postJob/PostJob";
+import MyAccountLayout from "../layouts/myAccountLayout/MyAccountLayout";
+import MyProfile from "../pages/myAccount/myProfile/MyProfile";
+import MyResume from "../pages/myAccount/myResume/MyResume";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +40,25 @@ export const router = createBrowserRouter([
       {
         path: "/resgistration/sing-in",
         element: <Login></Login>,
+      },
+    ],
+  },
+  {
+    path: "/my-account",
+    element: <MyAccountLayout></MyAccountLayout>,
+    children: [
+      {
+        path: "/my-account",
+        element: <MyProfile></MyProfile>,
+      },
+      {
+        path: "/my-account/my-profile",
+        element: <MyProfile></MyProfile>,
+      },
+
+      {
+        path: "/my-account/my-resume",
+        element: <MyResume></MyResume>,
       },
     ],
   },

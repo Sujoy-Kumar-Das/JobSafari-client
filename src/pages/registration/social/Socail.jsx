@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { BsFacebook, BsGoogle, BsTwitter } from "react-icons/bs";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { storeUsersInfo } from "../../../commonFuntions/storeUser";
-import { errorMessage } from "../../../commonFuntions/errorMessage";
+import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 import { successMessage } from "../../../commonFuntions/successMessage";
 const Socail = ({ setFirebaseError }) => {
   // constexts
@@ -24,7 +24,7 @@ const Socail = ({ setFirebaseError }) => {
       if (result?.success) {
         successMessage(result.message);
       } else {
-        errorMessage(result.message);
+        errorMessageHandeler(result.message);
       }
     } catch (error) {
       setFirebaseError(error.message);

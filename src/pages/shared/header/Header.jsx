@@ -10,7 +10,7 @@ const Header = () => {
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Posts", link: "/job-posts" },
     { id: 3, text: "Post a Job", link: "/post-job" },
-    { id: 4, text: "My Account", link: "/my-profile" },
+    { id: 4, text: "My Account", link: "/my-account/my-profile" },
     { id: 5, text: "My Applications", link: "/my-applications" },
     { id: 6, text: "Blogs", link: "/blogs" },
     {
@@ -48,12 +48,12 @@ const Header = () => {
       <div className=" ">
         <ul className=" hidden px-1 lg:flex items-center gap-x-5">
           {menuItems.map((item) => (
-            <li key={item.id} className={`${item?.user ? "hidden" : "inline"}`}>
+            <li key={item.id} className={` ${item?.user ? "hidden" : "inline"}`}>
               <NavLink
                 className={(navlink) =>
                   navlink.isActive
                     ? "text-primary font-bold cursor-pointer"
-                    : "font-bold cursor-pointer hover:text-primary transition-all duration-500 text-secondary"
+                    : "font-bold cursor-pointer hover:text-primary transition-all duration-500 text-secondary hover:border-b-2 border-black pb-[2px]"
                 }
                 to={item.link}
               >

@@ -7,7 +7,7 @@ import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { uploadImage } from "../../../commonFuntions/uploadImage";
 import { Link } from "react-router-dom";
 import { storeUsersInfo } from "../../../commonFuntions/storeUser";
-import { errorMessage } from "../../../commonFuntions/errorMessage";
+import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 import { successMessage } from "../../../commonFuntions/successMessage";
 
 const SingUp = () => {
@@ -63,7 +63,7 @@ const SingUp = () => {
         setAccpet(false);
         reset();
       } else {
-        errorMessage(result.message);
+        errorMessageHandeler(result.message);
         setAccpet(false);
       }
     } catch (error) {
