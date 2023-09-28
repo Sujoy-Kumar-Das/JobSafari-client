@@ -75,7 +75,24 @@ const PersonalInfo = ({ register, errors }) => {
             <p className=" mt-1 text-error">{errors?.email?.message}</p>
           )}
         </div>
-
+        <div className="form-control">
+          <label className="label">Phone</label>
+          <input
+            type="tel"
+            placeholder="Enter Your Phone Number"
+            defaultValue={user.email}
+            className={`input input-bordered ${
+              errors?.email?.message &&
+              " input-error placeholder-error border-error"
+            }`}
+            {...register("mobile", {
+              required: "Phone Number Is Required",
+            })}
+          />
+          {errors?.mobile && (
+            <p className=" mt-1 text-error">{errors?.mobile?.message}</p>
+          )}
+        </div>
         <div className="form-control">
           <label className="label">
             <span className="label-text ">Photo</span>

@@ -6,6 +6,8 @@ import { validateImage } from "../../../commonFuntions/validatedImage";
 import SocialInfo from "../socialInfo/SocialInfo";
 import MyExperience from "../myExperience/MyExperience";
 import Skills from "../skills/Skills";
+import MyProjects from "../myProjects/MyProjects";
+import MyEducation from "../education/MyEducation";
 
 const MyResume = () => {
   const {
@@ -17,14 +19,41 @@ const MyResume = () => {
 
   // states
   const [experienceFields, setExperienceField] = useState([{}]); // state for experience fields
-  const [expertiseFields, setExpertiseFields] = useState([""]);
-  const [comfortableFields, setComfortableFields] = useState([""]);
-  const [familiarFields, setFamiliarFields] = useState([""]);
-  const [toolsFields, setToolsFields] = useState([""]);
+  const [projectsFields, setProjectsField] = useState([{}]); // state for projects fields
+  const [myEducationFields, setMyEducationFields] = useState([{}]); // state for education fields
+
+  // convert string to array
+  const convertStrToArray = (str) => {
+    const array = str.split(" ,");
+    return array;
+  };
   // genarate resmue
   const handleGenarateResume = (data) => {
-    // console.log(data);
-    console.log(familiarFields)
+    const expertise = convertStrToArray(data.expertise);
+    const comfortable = convertStrToArray(data.comfortable);
+    const familiar = convertStrToArray(data.familiar);
+    const tools = convertStrToArray(data.tools);
+    const myResmeData = {
+      name: data.name,
+      email: data.email,
+      careerObjective: data.careerObjective ? data.careerObjective : null,
+      social: [
+        { facebook: data.facebook },
+        { github: data.github },
+        { linkdin: data.linkdin },
+        { twiter: data.twiter },
+      ],
+      skills: [
+        { expertise: expertise },
+        { comfortable: comfortable },
+        { familiar: familiar },
+        { tools: tools },
+      ],
+      projects: projectsFields,
+      experience: experienceFields,
+      education: myEducationFields,
+    };
+    console.log(myResmeData);
   };
   return (
     <section>
@@ -55,7 +84,7 @@ const MyResume = () => {
         className=" w-4/5 mx-auto mt-20"
         onSubmit={handleSubmit(handleGenarateResume)}
       >
-        {/* <PersonalInfo register={register} errors={errors}></PersonalInfo>
+        <PersonalInfo register={register} errors={errors}></PersonalInfo>
         <div className=" divider"></div>
         <SocialInfo register={register} errors={errors}></SocialInfo>
         <div className=" divider"></div>
@@ -65,17 +94,17 @@ const MyResume = () => {
           register={register}
           errors={errors}
         ></MyExperience>
-        <div className=" divider"></div> */}
-        <Skills
-          expertiseFields={expertiseFields}
-          setExpertiseFields={setExpertiseFields}
-          comfortableFields={comfortableFields}
-          setComfortableFields={setComfortableFields}
-          familiarFields={familiarFields}
-          setFamiliarFields={setFamiliarFields}
-          toolsFields={toolsFields}
-          setToolsFields={setToolsFields}
-        ></Skills>
+        <div className=" divider"></div>
+        <Skills register={register} errors={errors}></Skills>
+        <div className=" divider"></div>
+        <MyProjects
+          projectsFields={projectsFields}
+          setProjectsField={setProjectsField}
+        ></MyProjects>
+        <MyEducation
+          myEducationFields={myEducationFields}
+          setmyEducationFields={setMyEducationFields}
+        ></MyEducation>
         <button className={` btn  w-full mt-5 btn-primary `}>
           Genarate Resume
         </button>
