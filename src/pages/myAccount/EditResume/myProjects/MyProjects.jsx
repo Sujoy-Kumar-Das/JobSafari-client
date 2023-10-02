@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlusCircle } from "react-icons/ai";
-import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
+import { errorMessageHandeler } from "../../../../commonFuntions/errorMessageHandeler";
 
 const MyProjects = ({ projectsFields, setProjectsField }) => {
   //   handle increse experience field

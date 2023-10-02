@@ -11,7 +11,9 @@ import AllJobPosts from "../pages/allJobPosts/AllJobPosts";
 import PostJob from "../pages/postJob/PostJob";
 import MyAccountLayout from "../layouts/myAccountLayout/MyAccountLayout";
 import MyProfile from "../pages/myAccount/myProfile/MyProfile";
+import EditResume from "../pages/myAccount/EditResume/EditResume";
 import MyResume from "../pages/myAccount/myResume/MyResume";
+import AllUsers from "../pages/myAccount/allUsers/AllUsers";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -59,6 +61,15 @@ export const router = createBrowserRouter([
       {
         path: "/my-account/my-resume",
         element: <MyResume></MyResume>,
+      },
+      {
+        path: "/my-account/edit-my-resume",
+        element: <EditResume></EditResume>,
+      },
+      ,
+      {
+        path: "/my-account/all-users",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },

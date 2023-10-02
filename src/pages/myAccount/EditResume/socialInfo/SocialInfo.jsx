@@ -1,6 +1,6 @@
 import React from "react";
 
-const SocialInfo = ({ register, errors }) => {
+const SocialInfo = ({ register, errors,resume }) => {
   return (
     <div id="social-info">
       <h1 className=" text-3xl lg:text-4xl font-bold text-secondary mb-5">
@@ -17,6 +17,7 @@ const SocialInfo = ({ register, errors }) => {
               " input-error placeholder-error border-error"
             }`}
             {...register("facebook", { required: "Facebook is required" })}
+            defaultValue={resume.social[0].link}
           />
           {errors?.facebook && (
             <p className=" mt-1 text-error">{errors?.facebook?.message}</p>
@@ -29,6 +30,7 @@ const SocialInfo = ({ register, errors }) => {
             placeholder="Enter Twiter Link"
             className={`input input-bordered `}
             {...register("twiter")}
+            defaultValue={resume.social[1].link}
           />
         </div>
         <div className="form-control">
@@ -43,6 +45,7 @@ const SocialInfo = ({ register, errors }) => {
             {...register("linkdin", {
               required: "Linkdin id is required.",
             })}
+            defaultValue={resume.social[2].link}
           />
           {errors?.linkdin && (
             <p className=" mt-1 text-error">{errors?.linkdin?.message}</p>
@@ -56,6 +59,7 @@ const SocialInfo = ({ register, errors }) => {
             placeholder="Enter Facebook Link"
             className={`input input-bordered `}
             {...register("github")}
+            defaultValue={resume.social[3].link}
           />
         </div>
       </div>

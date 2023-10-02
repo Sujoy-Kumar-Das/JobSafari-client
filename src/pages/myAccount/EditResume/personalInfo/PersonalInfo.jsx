@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { validateImage } from "../../../commonFuntions/validatedImage";
-import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
+import { validateImage } from "../../../../commonFuntions/validatedImage";
+import { AuthContextProvider } from "../../../../contexts/AuthContext/AuthContext";
 
-const PersonalInfo = ({ register, errors }) => {
+const PersonalInfo = ({ register, errors, resume }) => {
   const { user } = useContext(AuthContextProvider);
 
   return (
@@ -16,6 +16,7 @@ const PersonalInfo = ({ register, errors }) => {
           className="textarea textarea-bordered"
           placeholder="Career Objective"
           {...register("careerObjective")}
+          defaultValue={resume.careerObjective}
         ></textarea>
         {errors?.email && (
           <p className=" mt-1 text-error">{errors?.email?.message}</p>
@@ -51,6 +52,7 @@ const PersonalInfo = ({ register, errors }) => {
             {...register("address", {
               required: " Address Is Required",
             })}
+            defaultValue={resume.address}
           />
           {errors?.email && (
             <p className=" mt-1 text-error">{errors?.address?.message}</p>
@@ -80,7 +82,7 @@ const PersonalInfo = ({ register, errors }) => {
           <input
             type="tel"
             placeholder="Enter Your Phone Number"
-            defaultValue={user.email}
+            defaultValue={resume.mobile}
             className={`input input-bordered ${
               errors?.email?.message &&
               " input-error placeholder-error border-error"
@@ -88,29 +90,10 @@ const PersonalInfo = ({ register, errors }) => {
             {...register("mobile", {
               required: "Phone Number Is Required",
             })}
+          
           />
           {errors?.mobile && (
             <p className=" mt-1 text-error">{errors?.mobile?.message}</p>
-          )}
-        </div>
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text ">Photo</span>
-          </label>
-          <input
-            type="file"
-            className={`file-input file-input-bordered  w-full ${
-              errors?.photo?.message
-                ? " file-input-error text-error"
-                : "file-input-secondary"
-            }`}
-            {...register("photo", {
-              required: "Photo Is Required",
-              validate: validateImage,
-            })}
-          />
-          {errors?.photo && (
-            <p className=" mt-1 text-error">{errors?.photo?.message}</p>
           )}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { AiOutlineMinus, AiOutlinePlusCircle } from "react-icons/ai";
-import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
+import { errorMessageHandeler } from "../../../../commonFuntions/errorMessageHandeler";
 
 const MyEducation = ({ myEducationFields, setmyEducationFields }) => {
   //   handle increse experience field

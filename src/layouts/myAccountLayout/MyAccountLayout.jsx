@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
 import { AiFillHome, AiOutlineGlobal, AiOutlineMenu } from "react-icons/ai";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiUsers } from "react-icons/fi";
 import { FaBloggerB, FaDownload, FaFileUpload, FaUser } from "react-icons/fa";
-import { BsFillPenFill } from "react-icons/bs";
+import { BsFillCreditCard2BackFill, BsFillPenFill } from "react-icons/bs";
 
 const MyAccountLayout = () => {
   // contexts
@@ -13,13 +13,15 @@ const MyAccountLayout = () => {
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Posts", link: "/job-posts" },
     { id: 3, text: "Post a Job", link: "/post-job" },
-    { id: 6, text: "Blogs", link: "/blogs" },
+    { id: 4, text: "Blogs", link: "/blogs" },
   ];
 
   const myProfileItems = [
     { id: 1, text: "My Profile", link: "/my-account/my-profile" },
     { id: 2, text: "My Resume", link: "/my-account/my-resume" },
-    { id: 3, text: "My Applications", link: "/my-account/my-application" },
+    { id: 3, text: "Edit Resume", link: "/my-account/edit-my-resume" },
+    { id: 4, text: "My Applications", link: "/my-account/my-application" },
+    { id: 5, text: "All Users", link: "/my-account/all-users" },
   ];
   return (
     <div className="drawer lg:drawer-open">
@@ -34,9 +36,9 @@ const MyAccountLayout = () => {
       >
         <AiOutlineMenu />
       </label>
-      <div className="drawer-side">
+      <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className=" p-10 w-80 min-h-full bg-base-200 text-base-content ">
+        <ul className=" p-10 w-80 bg-base-200 text-base-content min-h-screen">
           {myProfileItems.map((item) => (
             <li key={item.id} className=" p-1">
               <NavLink
@@ -54,20 +56,36 @@ const MyAccountLayout = () => {
                     </span>
                     <span>{item.text} </span>
                   </p>
-                ) : item.text === "My Resume" ? (
+                ) : item.text === "Edit Resume" ? (
                   <p className=" flex items-center space-x-2 ">
                     <span>
                       <BsFillPenFill></BsFillPenFill>
                     </span>
                     <span>{item.text} </span>
                   </p>
-                ) : (
+                ) : item.text === "My Resume" ? (
+                  <p className=" flex items-center space-x-2 ">
+                    <span>
+                      <BsFillCreditCard2BackFill></BsFillCreditCard2BackFill>
+                    </span>
+                    <span>{item.text} </span>
+                  </p>
+                ) : item.text === "My Applications" ? (
                   <p className=" flex items-center space-x-2 ">
                     <span>
                       <FaDownload></FaDownload>
                     </span>
                     <span>{item.text} </span>
                   </p>
+                ) : item.text === "All Users" ? (
+                  <p className=" flex items-center space-x-2 ">
+                    <span>
+                      <FiUsers></FiUsers>
+                    </span>
+                    <span>{item.text} </span>
+                  </p>
+                ) : (
+                  ""
                 )}
               </NavLink>
             </li>
