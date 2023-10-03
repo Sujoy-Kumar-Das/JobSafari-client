@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   FacebookAuthProvider,
   signOut,
+  deleteUser,
 } from "firebase/auth";
 import app from "../../firebase/Firebase.init";
 
@@ -56,6 +57,13 @@ const AuthContext = ({ children }) => {
     setLoading(true);
     return signOut(auth);
   };
+
+  // delete user
+  const userDelete = () => {
+    setLoading(true);
+    return deleteUser(auth.currentUser);
+  };
+
   //   observer
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -75,6 +83,7 @@ const AuthContext = ({ children }) => {
     createUser,
     updateUserInfo,
     loginUser,
+    userDelete,
     logOutUser,
   };
   return (

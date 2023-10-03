@@ -1,19 +1,47 @@
-import React from "react";
+import React, { useContext } from "react";
 import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
 import Error from "../../shared/error/Error";
 import { FaTrash } from "react-icons/fa";
+import Swal from "sweetalert2";
+import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
+import { successMessage } from "../../../commonFuntions/successMessage";
+import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 
 const AllUsers = () => {
+  // contexts
+  const { userDelete } = useContext(AuthContextProvider);
   const url = `http://localhost:5000/all-users`;
   const [isLoading, data] = useLoadData("all-users", url);
+
+  const handleDeleteUser = async (user) => {
+    const result = await Swal.fire({
+      title: `Are you sure ? You want to delete ${user.name}?`,
+      showDenyButton: true,
+      confirmButtonText: "Delete",
+      denyButtonText: `Cancel`,
+    });
+    if (result.isConfirmed) {
+      const res = await fetch(`http://localhost:5000/delete-user/${user._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success) {
+        await userDelete();
+        successMessage(data.message);
+      } else {
+        errorMessageHandeler(data.message);
+      }
+    } else {
+      Swal.fire("You Canceled the deletation.");
+    }
+  };
   if (isLoading) {
     return <Loader />;
   }
   if (!data.success) {
     return <Error message={data.message} />;
   }
-  console.log(data);
   return (
     <section className=" mt-20 w-11/12 mx-auto">
       <h1 className=" text-3xl text-center uppercase  font-bold">All Users</h1>
@@ -52,7 +80,10 @@ const AllUsers = () => {
                   </button>
                 </td>
                 <td>
-                  <button className=" btn btn-sm btn-error btn-outline">
+                  <button
+                    onClick={() => handleDeleteUser(user)}
+                    className=" btn btn-sm btn-error btn-outline"
+                  >
                     <FaTrash />
                   </button>
                 </td>

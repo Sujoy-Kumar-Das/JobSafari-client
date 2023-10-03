@@ -12,13 +12,13 @@ const MyResume = () => {
   //load user data
 
   // user loading url
-  const userUrl = `http://localhost:5000/user-data?email=${user.email}`;
+  const userUrl = `http://localhost:5000/user-data?email=${user?.email}`;
 
   // load user custom hook
   const [userLoading, userData] = useLoadData("user-data", userUrl);
 
   // load resume url
-  const url = `http://localhost:5000/my-resumes?email=${user.email}`;
+  const url = `http://localhost:5000/my-resumes?email=${user?.email}`;
 
   const [isLoading, data] = useLoadData("my-resumes", url); // loader custom hook
 

@@ -31,7 +31,7 @@ const EditResume = () => {
     return array;
   };
   // load resume url
-  const url = `http://localhost:5000/my-resumes?email=${user.email}`;
+  const url = `http://localhost:5000/my-resumes?email=${user?.email}`;
 
   const [isLoading, data] = useLoadData("my-resumes", url);
   // genarate resmue
