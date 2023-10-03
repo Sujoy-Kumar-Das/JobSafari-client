@@ -23,7 +23,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Date Posted</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].datePosted}</p>
+              <p className=" text-sm">{data?.jobDetail?.datePosted}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center">
@@ -32,7 +32,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Closing date</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].deadline}</p>
+              <p className=" text-sm">{data?.jobDetail?.deadline}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center">
@@ -41,7 +41,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Hiring location</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].location}</p>
+              <p className=" text-sm">{data?.jobDetail?.location}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center justify-start">
@@ -50,7 +50,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Offered salary</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].salary}</p>
+              <p className=" text-sm">{data?.jobDetail?.salary}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center">
@@ -59,7 +59,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Career level</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].Career_level}</p>
+              <p className=" text-sm">{data?.jobDetail?.Career_level}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center ">
@@ -68,7 +68,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Qualification</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].education}</p>
+              <p className=" text-sm">{data?.jobDetail?.education}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center">
@@ -77,7 +77,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Experience</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].experience}</p>
+              <p className=" text-sm">{data?.jobDetail?.experience}</p>
             </div>
           </div>
           <div className=" flex gap-x-2 items-center">
@@ -86,7 +86,7 @@ const JobDetailCompo = ({ data }) => {
             </p>
             <div className=" text-base">
               <p className=" flex gap-x-2">Quantity</p>
-              <p className=" text-sm">{data?.jobDetail?.[0].quantity} person</p>
+              <p className=" text-sm">{data?.jobDetail?.quantity} person</p>
             </div>
           </div>
         </div>
@@ -96,12 +96,12 @@ const JobDetailCompo = ({ data }) => {
         <h1 className=" text-xl lg:text-3xl mb-1">Description</h1>
         <div className=" mt-3">
           <h3 className=" text-2xl mb-2">Overview</h3>
-          <p className=" text-base">{data?.jobDetail?.[0].description}</p>
+          <p className=" text-base">{data?.jobDetail?.description}</p>
         </div>
         <div className=" mt-3">
           <h3 className=" text-2xl mb-2">Requirements</h3>
           <ul>
-            {data?.jobDetail?.[0].requirements?.map((requirement, index) => (
+            {data?.jobDetail?.requirements?.map((requirement, index) => (
               <li className="list-disc	" key={index}>
                 {requirement}
               </li>
@@ -111,7 +111,7 @@ const JobDetailCompo = ({ data }) => {
         <div className=" mt-3">
           <h3 className=" text-2xl mb-2">Skills & Experience</h3>
           <ul>
-            {data?.jobDetail?.[0].skills?.map((skill, index) => (
+            {data?.jobDetail?.skills?.map((skill, index) => (
               <li className="list-disc	" key={index}>
                 {skill}
               </li>

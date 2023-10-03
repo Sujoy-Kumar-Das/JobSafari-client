@@ -6,10 +6,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
-import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 const Testimunial = () => {
-  // contexts
-  const { setLoading } = useContext(AuthContextProvider);
 
   // load data url
   const url = "http://localhost:5000/testimonials";
@@ -26,9 +23,6 @@ const Testimunial = () => {
   }
   if (isLoading) {
     return <Loader></Loader>;
-  }
-  if (!isLoading) {
-    setLoading(false);
   }
   return (
     <section className=" my-20">

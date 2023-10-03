@@ -1,14 +1,15 @@
 import React, { useContext } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
 import { AiFillHome, AiOutlineGlobal, AiOutlineMenu } from "react-icons/ai";
 import { FiLogOut, FiUsers } from "react-icons/fi";
 import { FaBloggerB, FaDownload, FaFileUpload, FaUser } from "react-icons/fa";
 import { BsFillCreditCard2BackFill, BsFillPenFill } from "react-icons/bs";
+import { successMessage } from "../../commonFuntions/successMessage";
 
 const MyAccountLayout = () => {
   // contexts
-  const { user } = useContext(AuthContextProvider);
+  const { user, logOutUser } = useContext(AuthContextProvider);
   const menuItems = [
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Posts", link: "/job-posts" },
@@ -23,6 +24,15 @@ const MyAccountLayout = () => {
     { id: 4, text: "My Applications", link: "/my-account/my-application" },
     { id: 5, text: "All Users", link: "/my-account/all-users" },
   ];
+  // navigate hook
+  const navigate = useNavigate();
+
+  // handle logout
+  const handleLogOut = async () => {
+    await logOutUser();
+    successMessage("Logout Successfully");
+    navigate("/");
+  };
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -139,9 +149,21 @@ const MyAccountLayout = () => {
               </NavLink>
             </li>
           ))}
-          <button className=" mt-3 btn btn-sm w-full lg:w-3/5  btn-primary  border-none ">
-            logout <FiLogOut />{" "}
-          </button>
+          {!user ? (
+            <Link
+              to={"/resgistration/sing-in"}
+              className=" mt-3 btn btn-sm w-full lg:w-3/5  btn-primary  border-none "
+            >
+              Login now
+            </Link>
+          ) : (
+            <button
+              onClick={handleLogOut}
+              className=" mt-3 btn btn-sm w-full lg:w-3/5  btn-primary  border-none "
+            >
+              logout <FiLogOut />{" "}
+            </button>
+          )}
         </ul>
       </div>
     </div>

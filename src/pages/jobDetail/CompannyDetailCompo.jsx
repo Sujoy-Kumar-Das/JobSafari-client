@@ -9,34 +9,34 @@ const CompannyDetailCompo = ({ data }) => {
       <div className=" mt-4">
         <div className=" mt-3">
           <h1 className=" text-xl lg:text-2xl mb-1">Description</h1>
-          <p className=" text-base">{data?.jobDetail?.[0].description}</p>
+          <p className=" text-base">{data?.jobDetail?.description}</p>
         </div>
         <div className=" divider"></div>
         <div className=" grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-10">
           <div className=" text-secondary">
             <p className=" text-lg ">Company Name</p>
-            <p className=" text-sm">{data?.jobDetail?.[0].company}</p>
+            <p className=" text-sm">{data?.jobDetail?.company}</p>
           </div>
           <div className=" text-secondary">
             <p className=" text-lg ">Categories</p>
-            <p className=" text-sm">{data?.jobDetail?.[0].categories}</p>
+            <p className=" text-sm">{data?.jobDetail?.categories}</p>
           </div>
           <div className=" text-secondary">
             <p className=" text-lg ">Company size</p>
-            <p className=" text-sm">{data?.jobDetail?.[0].company_size}</p>
+            <p className=" text-sm">{data?.jobDetail?.company_size}</p>
           </div>
           <div className=" text-secondary">
             <p className=" text-lg ">Founded in</p>
-            <p className=" text-sm">{data?.jobDetail?.[0].Founded_in}</p>
+            <p className=" text-sm">{data?.jobDetail?.Founded_in}</p>
           </div>
           <div className=" text-secondary">
             <p className=" text-lg ">Location</p>
-            <p className=" text-sm">{data?.jobDetail?.[0].location}</p>
+            <p className=" text-sm">{data?.jobDetail?.location}</p>
           </div>
 
           <div className=" text-secondary">
             <p className=" text-lg ">Email</p>
-            <p className=" text-sm">{data?.jobDetail?.[0].email}</p>
+            <p className=" text-sm">{data?.jobDetail?.email}</p>
           </div>
           <div className=" flex gap-x-2 text-lg">
             <p>
@@ -55,7 +55,7 @@ const CompannyDetailCompo = ({ data }) => {
         </div>
         <div className=" mt-5">
           <Link className=" btn btn-outline rounded-full lg:me-5 mb-3">
-            visit www.{data?.jobDetail?.[0].company}.com
+            visit www.{data?.jobDetail?.company}.com
           </Link>
           <button className=" btn btn-primary rounded-full">
             Send message <AiOutlineSend />

@@ -14,6 +14,7 @@ import MyProfile from "../pages/myAccount/myProfile/MyProfile";
 import EditResume from "../pages/myAccount/EditResume/EditResume";
 import MyResume from "../pages/myAccount/myResume/MyResume";
 import AllUsers from "../pages/myAccount/allUsers/AllUsers";
+import MyApplication from "../pages/myAccount/myApplications/MyApplication";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -66,7 +67,10 @@ export const router = createBrowserRouter([
         path: "/my-account/edit-my-resume",
         element: <EditResume></EditResume>,
       },
-      ,
+      {
+        path: "/my-account/my-application",
+        element: <MyApplication></MyApplication>,
+      },
       {
         path: "/my-account/all-users",
         element: <AllUsers></AllUsers>,

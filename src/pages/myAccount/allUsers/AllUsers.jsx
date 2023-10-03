@@ -14,6 +14,7 @@ const AllUsers = () => {
   const url = `http://localhost:5000/all-users`;
   const [isLoading, data] = useLoadData("all-users", url);
 
+  // handle delete user
   const handleDeleteUser = async (user) => {
     const result = await Swal.fire({
       title: `Are you sure ? You want to delete ${user.name}?`,
@@ -34,6 +35,33 @@ const AllUsers = () => {
       }
     } else {
       Swal.fire("You Canceled the deletation.");
+    }
+  };
+
+  // handle admin
+  const handleAdmin = async (user) => {
+    const result = await Swal.fire({
+      title: `Are you sure ? You want to make admin ${user.name}?`,
+      showDenyButton: true,
+      confirmButtonText: "YES",
+      denyButtonText: `Cancel`,
+    });
+    if (result.isConfirmed) {
+      const res = await fetch(`http://localhost:5000/make-admin/${user._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      if (data.success) {
+        await userDelete();
+        successMessage(data.message);
+      } else {
+        errorMessageHandeler(data.message);
+      }
+    } else {
+      Swal.fire(`You Canceled make admin proccess ${user.name}`);
     }
   };
   if (isLoading) {
@@ -70,12 +98,18 @@ const AllUsers = () => {
                     </div>
                   </div>
                 </td>
+                {console.log(user)}
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>{user.post ? user.post : "NOT MENTIONED"}</td>
                 <td>
-                  <button className=" btn btn-sm btn-primary">
+                  <button
+                    onClick={() => {
+                      handleAdmin(user);
+                    }}
+                    className=" btn btn-sm btn-primary"
+                  >
                     Make Admin
                   </button>
                 </td>

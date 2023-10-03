@@ -6,9 +6,6 @@ import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import useLoadData from "../../../hooks/useLoadData";
 
 const RecentJobPost = () => {
-  // contexts
-  const { setLoading } = useContext(AuthContextProvider);
-
   // get job url
   const url = `http://localhost:5000/job-posts?perPageItem=3`;
 
@@ -18,10 +15,6 @@ const RecentJobPost = () => {
   // loading component
   if (isLoading) {
     return <Loader></Loader>;
-  }
-
-  if (isLoading) {
-    setLoading(false);
   }
   return (
     <section className=" my-10">
