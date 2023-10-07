@@ -98,7 +98,7 @@ const JobDetail = () => {
         </TabList>
 
         <TabPanel>
-          <JobDetailCompo  data={data} />
+          <JobDetailCompo data={data} />
         </TabPanel>
         <TabPanel>
           <CompannyDetailCompo data={data} />
@@ -108,12 +108,23 @@ const JobDetail = () => {
       <div>
         <div className="flex justify-between items-start">
           <h1 className=" text-xl lg:text-2xl mb-1">Jobs Opening</h1>
-          <button
-            onClick={() => handleJobPost(data.jobDetail)}
-            className=" btn btn-primary rounded-full"
-          >
-            Apply now
-          </button>
+          {!user ? (
+            <button
+              onClick={() => {
+                errorMessageHandeler("Login for apply job.");
+              }}
+              className={` btn btn-primary rounded-full`}
+            >
+              Apply now
+            </button>
+          ) : (
+            <button
+              onClick={() => handleJobPost(data.jobDetail)}
+              className={` btn btn-primary rounded-full`}
+            >
+              Apply now
+            </button>
+          )}
         </div>
         <p className=" text-lg">{data?.jobDetail?.job_title}</p>
       </div>

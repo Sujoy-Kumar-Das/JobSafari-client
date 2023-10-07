@@ -3,7 +3,7 @@ import JobPostCard from "../../pages/shared/jobPostCard/JobPostCard";
 const MapCardCompo = ({ items }) => {
   return (
     <>
-      {items.map((item) => (
+      {items?.map((item) => (
         <JobPostCard key={item._id} item={item}></JobPostCard>
       ))}
     </>

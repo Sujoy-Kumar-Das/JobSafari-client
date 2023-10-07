@@ -16,6 +16,7 @@ import MyResume from "../pages/myAccount/myResume/MyResume";
 import AllUsers from "../pages/myAccount/allUsers/AllUsers";
 import MyApplication from "../pages/myAccount/myApplications/MyApplication";
 import PrivateRouter from "./PrivateRouter";
+import AdminRouter from "./AdminRouter";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,7 +26,14 @@ export const router = createBrowserRouter([
       { path: "/home", element: <Home></Home> },
       { path: "/job-posts", element: <AllJobPosts></AllJobPosts> },
       { path: "/job-detail/:id", element: <JobDetail></JobDetail> },
-      { path: "/post-job", element: <PostJob></PostJob> },
+      {
+        path: "/post-job",
+        element: (
+          <PrivateRouter>
+            <PostJob></PostJob>
+          </PrivateRouter>
+        ),
+      },
       {
         path: "/job-search",
         element: <SearchResultCompo></SearchResultCompo>,
@@ -78,7 +86,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-account/all-users",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRouter>
+            <AllUsers></AllUsers>
+          </AdminRouter>
+        ),
       },
     ],
   },

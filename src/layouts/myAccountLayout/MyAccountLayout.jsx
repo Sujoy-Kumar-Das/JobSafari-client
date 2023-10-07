@@ -11,9 +11,9 @@ import Loader from "../../pages/shared/loaders/Loader";
 
 const MyAccountLayout = () => {
   // contexts
-  const { user, logOutUser } = useContext(AuthContextProvider);
+  const { user, logOutUser } = useContext(AuthContextProvider); // auth context
 
-  const [isAdmin, adminLoading] = useIsAdmin(user?.email);
+  const [isAdmin, adminLoading] = useIsAdmin(user?.email); // is admin custom hook
   const menuItems = [
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Posts", link: "/job-posts" },
