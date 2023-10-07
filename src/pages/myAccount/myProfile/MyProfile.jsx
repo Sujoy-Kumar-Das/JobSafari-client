@@ -7,7 +7,7 @@ import { AiFillCheckCircle } from "react-icons/ai";
 
 const MyProfile = () => {
   const { user } = useContext(AuthContextProvider);
-  const url = `http://localhost:5000/user-data?email=${user?.email}`;
+  const url = `user-data?email=${user?.email}`;
   const [isLoading, data] = useLoadData("user-data", url);
   if (isLoading) {
     return <Loader></Loader>;
@@ -62,7 +62,7 @@ const MyProfile = () => {
                 <th>Verified</th>
                 <td>
                   {user?.emailVerified ? (
-                    <button className=" btn btn-secondary btn-disabled btn-sm">
+                    <button className=" btn btn-secondary btn-disabled btn-sm rounded">
                       Verified
                     </button>
                   ) : (
@@ -71,6 +71,10 @@ const MyProfile = () => {
                     </button>
                   )}
                 </td>
+              </tr>
+              <tr>
+                <th>Action</th>
+                <td><button className=" btn btn-error btn-sm rounded">Delete Account</button></td>
               </tr>
             </tbody>
           </table>

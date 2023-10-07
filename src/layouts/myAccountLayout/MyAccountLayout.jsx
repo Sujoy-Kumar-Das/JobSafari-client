@@ -34,18 +34,25 @@ const MyAccountLayout = () => {
     navigate("/");
   };
   return (
-    <div className="drawer lg:drawer-open">
+    <div className=" flex flex-col-reverse lg:flex-row-reverse justify-between lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
+      <div className=" w-full lg:w-10/12">
         <Outlet></Outlet>
       </div>
+      <div className="bg-base-200  lg:hidden">
+        <div className=" w-11/12 mx-auto h-12 flex items-center justify-between ">
+          <label
+            htmlFor="my-drawer-2"
+            className="btn btn-ghost btn-lg drawer-button "
+          >
+            <AiOutlineMenu />
+          </label>
+          <Link to={"/home"} className=" btn btn-ghost">
+            Job Safari
+          </Link>
+        </div>
+      </div>
 
-      <label
-        htmlFor="my-drawer-2"
-        className="btn btn-primary drawer-button lg:hidden"
-      >
-        <AiOutlineMenu />
-      </label>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className=" p-10 w-80 bg-base-200 text-base-content min-h-screen">

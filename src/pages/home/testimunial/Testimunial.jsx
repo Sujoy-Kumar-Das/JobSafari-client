@@ -9,7 +9,7 @@ import Loader from "../../shared/loaders/Loader";
 const Testimunial = () => {
 
   // load data url
-  const url = "http://localhost:5000/testimonials";
+  const url = "testimonials";
 
   // laod data by custom hook
   const [isLoading, data] = useLoadData("/testimonials", url);

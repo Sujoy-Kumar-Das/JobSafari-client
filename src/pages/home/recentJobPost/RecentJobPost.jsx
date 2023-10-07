@@ -7,7 +7,7 @@ import useLoadData from "../../../hooks/useLoadData";
 
 const RecentJobPost = () => {
   // get job url
-  const url = `http://localhost:5000/job-posts?perPageItem=3`;
+  const url = `job-posts?perPageItem=3`;
 
   // laod all job custom hook
   const [isLoading, data] = useLoadData("/job-posts", url);

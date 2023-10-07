@@ -11,7 +11,6 @@ const Header = () => {
     { id: 2, text: "Job Posts", link: "/job-posts" },
     { id: 3, text: "Post a Job", link: "/post-job" },
     { id: 4, text: "My Account", link: "/my-account/my-profile" },
-    { id: 5, text: "My Applications", link: "/my-applications" },
     { id: 6, text: "Blogs", link: "/blogs" },
     {
       id: 8,
@@ -48,7 +47,10 @@ const Header = () => {
       <div className=" ">
         <ul className=" hidden px-1 lg:flex items-center gap-x-5">
           {menuItems.map((item) => (
-            <li key={item.id} className={` ${item?.user ? "hidden" : "inline"}`}>
+            <li
+              key={item.id}
+              className={` ${item?.user ? "hidden" : "inline"}`}
+            >
               <NavLink
                 className={(navlink) =>
                   navlink.isActive
@@ -90,7 +92,7 @@ const Header = () => {
           </div>
           <div className="drawer-side">
             <label htmlFor="my-drawer" className="drawer-overlay"></label>
-            <div className=" p-4 w-80 min-h-full bg-base-200 text-base-content flex">
+            <div className=" p-4 w-80 min-h-full bg-base-200 text-base-content">
               <ul>
                 {menuItems.map((item) => (
                   <li
@@ -111,9 +113,11 @@ const Header = () => {
                 ))}
                 <button
                   onClick={handleLogOut}
-                  className={`btn btn-info btn-sm ${!user && "hidden"}`}
+                  className={`btn btn-info btn-sm w-full mt-2 ${
+                    !user && "hidden"
+                  }`}
                 >
-                  Singout
+                  Logout
                 </button>
               </ul>
             </div>

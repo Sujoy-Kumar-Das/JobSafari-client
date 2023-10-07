@@ -31,7 +31,7 @@ const EditResume = () => {
     return array;
   };
   // load resume url
-  const url = `http://localhost:5000/my-resumes?email=${user?.email}`;
+  const url = `my-resumes?email=${user?.email}`;
 
   const [isLoading, data] = useLoadData("my-resumes", url);
   // genarate resmue
@@ -80,10 +80,9 @@ const EditResume = () => {
   if (isLoading) {
     return <Loader></Loader>;
   }
-  console.log(data.resume);
   return (
     <section>
-      <div className="bg-blue-500 h-10 fixed w-full top-0">
+      <div className=" hidden lg:block bg-blue-500 h-10 fixed w-full top-0">
         <div className="flex items-center h-full px-4 w-4/5 mx-auto">
           <a className="btn btn-primary btn-sm rounded" href="#personal-info">
             Personal Information

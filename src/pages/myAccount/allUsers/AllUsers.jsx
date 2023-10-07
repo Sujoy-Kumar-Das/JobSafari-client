@@ -11,7 +11,7 @@ import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandel
 const AllUsers = () => {
   // contexts
   const { userDelete } = useContext(AuthContextProvider);
-  const url = `http://localhost:5000/all-users`;
+  const url = `all-users`;
   const [isLoading, data] = useLoadData("all-users", url);
 
   // handle delete user

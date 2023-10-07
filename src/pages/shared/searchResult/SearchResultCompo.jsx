@@ -23,7 +23,7 @@ const SearchResultCompo = () => {
   const itemsPerPage = 6;
 
   // load data url
-  const url = `http://localhost:5000/job-posts?perPageItem=${itemsPerPage}&currentPage=${currentPage}&jobTitle=${param1}&location=${param2}`;
+  const url = `job-posts?perPageItem=${itemsPerPage}&currentPage=${currentPage}&jobTitle=${param1}&location=${param2}`;
 
   //   load data by custom hook
   const [isLoading, data] = useLoadData("/job-posts", url);

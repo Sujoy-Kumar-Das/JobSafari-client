@@ -16,7 +16,7 @@ const PersonalInfo = ({ register, errors, resume }) => {
           className="textarea textarea-bordered"
           placeholder="Career Objective"
           {...register("careerObjective")}
-          defaultValue={resume.careerObjective}
+          defaultValue={resume?.careerObjective}
         ></textarea>
         {errors?.email && (
           <p className=" mt-1 text-error">{errors?.email?.message}</p>
@@ -28,7 +28,7 @@ const PersonalInfo = ({ register, errors, resume }) => {
           <input
             type="text"
             placeholder="Enter Your Name"
-            defaultValue={user.displayName}
+            defaultValue={user?.displayName}
             className={`input input-bordered ${
               errors?.name?.message &&
               " input-error placeholder-error border-error"
@@ -52,7 +52,7 @@ const PersonalInfo = ({ register, errors, resume }) => {
             {...register("address", {
               required: " Address Is Required",
             })}
-            defaultValue={resume.address}
+            defaultValue={resume?.address}
           />
           {errors?.email && (
             <p className=" mt-1 text-error">{errors?.address?.message}</p>
@@ -64,7 +64,7 @@ const PersonalInfo = ({ register, errors, resume }) => {
           <input
             type="email"
             placeholder="Enter Your Email Address"
-            defaultValue={user.email}
+            defaultValue={user?.email}
             className={`input input-bordered ${
               errors?.email?.message &&
               " input-error placeholder-error border-error"
@@ -82,7 +82,7 @@ const PersonalInfo = ({ register, errors, resume }) => {
           <input
             type="tel"
             placeholder="Enter Your Phone Number"
-            defaultValue={resume.mobile}
+            defaultValue={resume?.mobile}
             className={`input input-bordered ${
               errors?.email?.message &&
               " input-error placeholder-error border-error"

@@ -11,13 +11,14 @@ import Swal from "sweetalert2";
 import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
 import { successMessage } from "../../commonFuntions/successMessage";
 import { errorMessageHandeler } from "../../commonFuntions/errorMessageHandeler";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
 const JobDetail = () => {
   const { user } = useContext(AuthContextProvider);
   const { id } = useParams();
   const [showDetail, setShowDetail] = useState(true);
 
-  const url = `http://localhost:5000/job-detail/${id}`; //   url for laod job detail
+  const url = `job-detail/${id}`; //   url for laod job detail
 
   const [isLoading, data] = useLoadData("/job-detail", url); // load data custom hook
 
@@ -59,7 +60,7 @@ const JobDetail = () => {
     return <Error message={data?.message}></Error>;
   }
   return (
-    <section className=" w-4/5 lg:w-2/5 mx-auto my-10 text-secondary">
+    <section className=" w-11/12 lg:w-2/5 mx-auto my-10 text-secondary">
       <div className=" flex justify-between items-start w-full">
         <div>
           <h1 className=" text-xl lg:text-3xl mb-1">
@@ -76,30 +77,33 @@ const JobDetail = () => {
           <AiOutlineHeart />
         </p>
       </div>
-      <div className=" flex justify-between items-start mt-3">
-        <h1
-          onClick={() => setShowDetail(true)}
-          className={`text-3xl cursor-pointer ${
-            showDetail && "border-b-2 border-secondary"
-          }`}
-        >
-          Job Details
-        </h1>
-        <h1
-          onClick={() => setShowDetail(false)}
-          className={`text-3xl cursor-pointer ${
-            !showDetail && "border-b-2 border-secondary"
-          }`}
-        >
-          Company Details
-        </h1>
-      </div>
-      <div className="divider mt-1"></div>
-      {showDetail ? (
-        <JobDetailCompo data={data} />
-      ) : (
-        <CompannyDetailCompo data={data}></CompannyDetailCompo>
-      )}
+      <Tabs className={`my-3`}>
+        <TabList className={`flex justify-between`}>
+          <Tab
+            onClick={() => setShowDetail(true)}
+            className={`text-3xl cursor-pointer ${
+              showDetail && "border-b-2 border-secondary"
+            }`}
+          >
+            Job Details
+          </Tab>
+          <Tab
+            onClick={() => setShowDetail(false)}
+            className={`text-3xl cursor-pointer ${
+              !showDetail && "border-b-2 border-secondary"
+            }`}
+          >
+            Company Details
+          </Tab>
+        </TabList>
+
+        <TabPanel>
+          <JobDetailCompo  data={data} />
+        </TabPanel>
+        <TabPanel>
+          <CompannyDetailCompo data={data} />
+        </TabPanel>
+      </Tabs>
       <div className=" divider"></div>
       <div>
         <div className="flex justify-between items-start">

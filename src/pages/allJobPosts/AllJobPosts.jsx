@@ -13,7 +13,7 @@ const AllJobPosts = () => {
   const itemsPerPage = 6;
 
   // all jobs url
-  const url = `http://localhost:5000/job-posts?perPageItem=${itemsPerPage}&currentPage=${currentPage}`;
+  const url = `job-posts?perPageItem=${itemsPerPage}&currentPage=${currentPage}`;
   // get data custom hook
   const [isLoading, data] = useLoadData("/job-posts", url);
   const totalData = data?.count;
