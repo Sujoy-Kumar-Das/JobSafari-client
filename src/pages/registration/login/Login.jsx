@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import image from "../../../assets/loginBgImage.png";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 import { successMessage } from "../../../commonFuntions/successMessage";
 
@@ -22,7 +22,13 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm(); // use react hook from
+
+  const location = useLocation(); // use locaion hook
+  const from = location?.state?.from?.pathname || "/"; // get location where user want to go
+  const navigate = useNavigate(); // use navigate hook
+
+  // login handler
 
   const handleLogin = async (data) => {
     try {
@@ -34,6 +40,7 @@ const Login = () => {
       if (user.user) {
         successMessage(`${user?.user?.displayName} Loged in successfully.`);
         reset();
+        navigate(from, { replace: true });
       } else {
         errorMessageHandeler("Something went wrong.Login failed.");
       }
@@ -45,7 +52,7 @@ const Login = () => {
   };
   return (
     <section>
-      <h1 className=" text-3xl text-center uppercase  font-bold">Singin Now</h1>
+      <h1 className=" text-3xl text-center uppercase  font-bold">Login Now</h1>
 
       <div className=" flex lg:flex-row-reverse flex-col justify-around items-center">
         <div className=" w-full lg:w-1/2 flex justify-end">

@@ -98,20 +98,25 @@ const AllUsers = () => {
                     </div>
                   </div>
                 </td>
-                {console.log(user)}
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
                 <td>{user.post ? user.post : "NOT MENTIONED"}</td>
                 <td>
-                  <button
-                    onClick={() => {
-                      handleAdmin(user);
-                    }}
-                    className=" btn btn-sm btn-primary"
-                  >
-                    Make Admin
-                  </button>
+                  {user.admin ? (
+                    <button className=" btn btn-error btn-sm rounded">
+                      Remove Admin
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        handleAdmin(user);
+                      }}
+                      className=" btn btn-sm btn-primary rounded"
+                    >
+                      Make Admin
+                    </button>
+                  )}
                 </td>
                 <td>
                   <button

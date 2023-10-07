@@ -15,6 +15,7 @@ import EditResume from "../pages/myAccount/EditResume/EditResume";
 import MyResume from "../pages/myAccount/myResume/MyResume";
 import AllUsers from "../pages/myAccount/allUsers/AllUsers";
 import MyApplication from "../pages/myAccount/myApplications/MyApplication";
+import PrivateRouter from "./PrivateRouter";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -48,7 +49,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/my-account",
-    element: <MyAccountLayout></MyAccountLayout>,
+    element: (
+      <PrivateRouter>
+        <MyAccountLayout></MyAccountLayout>
+      </PrivateRouter>
+    ),
     children: [
       {
         path: "/my-account",

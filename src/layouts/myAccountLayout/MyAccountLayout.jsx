@@ -6,10 +6,14 @@ import { FiLogOut, FiUsers } from "react-icons/fi";
 import { FaBloggerB, FaDownload, FaFileUpload, FaUser } from "react-icons/fa";
 import { BsFillCreditCard2BackFill, BsFillPenFill } from "react-icons/bs";
 import { successMessage } from "../../commonFuntions/successMessage";
+import useIsAdmin from "../../hooks/useIsAdmin";
+import Loader from "../../pages/shared/loaders/Loader";
 
 const MyAccountLayout = () => {
   // contexts
   const { user, logOutUser } = useContext(AuthContextProvider);
+
+  const [isAdmin, adminLoading] = useIsAdmin(user?.email);
   const menuItems = [
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Posts", link: "/job-posts" },
@@ -18,11 +22,41 @@ const MyAccountLayout = () => {
   ];
 
   const myProfileItems = [
-    { id: 1, text: "My Profile", link: "/my-account/my-profile" },
-    { id: 2, text: "My Resume", link: "/my-account/my-resume" },
-    { id: 3, text: "Edit Resume", link: "/my-account/edit-my-resume" },
-    { id: 4, text: "My Applications", link: "/my-account/my-application" },
-    { id: 5, text: "All Users", link: "/my-account/all-users" },
+    {
+      id: 1,
+      text: "My Profile",
+      link: "/my-account/my-profile",
+      isAdminAccess: true,
+      access: true,
+    },
+    {
+      id: 2,
+      text: "My Resume",
+      link: "/my-account/my-resume",
+      isAdminAccess: true,
+      access: true,
+    },
+    {
+      id: 3,
+      text: "Edit Resume",
+      link: "/my-account/edit-my-resume",
+      isAdminAccess: true,
+      access: true,
+    },
+    {
+      id: 4,
+      text: "My Applications",
+      link: "/my-account/my-application",
+      isAdminAccess: true,
+      access: true,
+    },
+    {
+      id: 5,
+      text: "All Users",
+      link: "/my-account/all-users",
+      isAdminAccess: true,
+      access: false,
+    },
   ];
   // navigate hook
   const navigate = useNavigate();
@@ -33,6 +67,10 @@ const MyAccountLayout = () => {
     successMessage("Logout Successfully");
     navigate("/");
   };
+
+  if (adminLoading) {
+    return <Loader />;
+  }
   return (
     <div className=" flex flex-col-reverse lg:flex-row-reverse justify-between lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -52,12 +90,20 @@ const MyAccountLayout = () => {
           </Link>
         </div>
       </div>
-
       <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className=" p-10 w-80 bg-base-200 text-base-content min-h-screen">
           {myProfileItems.map((item) => (
-            <li key={item.id} className=" p-1">
+            <li
+              key={item.id}
+              className={`p-1 ${
+                item.isAdminAccess && isAdmin
+                  ? "block"
+                  : item.access
+                  ? "block"
+                  : "hidden"
+              }`}
+            >
               <NavLink
                 className={(navlink) =>
                   navlink.isActive
