@@ -12,11 +12,15 @@ import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
 import { successMessage } from "../../commonFuntions/successMessage";
 import { errorMessageHandeler } from "../../commonFuntions/errorMessageHandeler";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import usePostData from "../../hooks/usePostData";
 
 const JobDetail = () => {
   const { user } = useContext(AuthContextProvider);
   const { id } = useParams();
   const [showDetail, setShowDetail] = useState(true);
+
+  //   post data custom hook
+  const [postLoader, postData] = usePostData("post-application");
 
   const url = `job-detail/${id}`; //   url for laod job detail
 
@@ -35,19 +39,7 @@ const JobDetail = () => {
       denyButtonText: `Cancel`,
     });
     if (result.isConfirmed) {
-      const res = await fetch(`http://localhost:5000/post-application`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jobApplication),
-      });
-      const data = await res.json();
-      if (data.success) {
-        successMessage(data.message);
-      } else {
-        errorMessageHandeler(data.message);
-      }
+      await postData(jobApplication)
     } else {
       Swal.fire(`you canceld the job application.`);
     }

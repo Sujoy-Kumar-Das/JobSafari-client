@@ -12,6 +12,8 @@ import {
   deleteUser,
 } from "firebase/auth";
 import app from "../../firebase/Firebase.init";
+import Cookies from "js-cookie";
+import { errorMessageHandeler } from "../../commonFuntions/errorMessageHandeler";
 
 export const AuthContextProvider = createContext();
 const auth = getAuth(app);
@@ -55,6 +57,7 @@ const AuthContext = ({ children }) => {
   // singout user
   const logOutUser = () => {
     setLoading(true);
+    Cookies.remove("accessToken")
     return signOut(auth);
   };
 
@@ -66,9 +69,21 @@ const AuthContext = ({ children }) => {
 
   //   observer
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+    const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        const res = await fetch(
+          `http://localhost:5000/get-jwt-token?email=${currentUser?.email}`
+        );
+        const data = await res.json();
+        if (data.success) {
+          Cookies.set("accessToken", `bearer ${data.token}`);
+          setUser(currentUser);
+          setLoading(false);
+        } else {
+          errorMessageHandeler(data.message);
+          setLoading(false);
+        }
+      }
     });
     return () => {
       unSubscribe();

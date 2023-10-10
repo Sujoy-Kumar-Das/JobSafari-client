@@ -1,13 +1,19 @@
 import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, FreeMode, Pagination } from "swiper/modules";
+import {
+  Autoplay,
+  FreeMode,
+  Navigation,
+  Pagination,
+  Virtual,
+} from "swiper/modules";
+import "swiper/css/navigation";
 
 import "swiper/css";
 import "swiper/css/pagination";
 import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
 const Testimunial = () => {
-
   // load data url
   const url = "testimonials";
 
@@ -39,7 +45,9 @@ const Testimunial = () => {
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
+        modules={[Virtual, Navigation, Pagination]}
+        navigation={true}
+        virtual
         className="mySwiper w-full"
       >
         {data?.testimonials?.map((testimonial) => (

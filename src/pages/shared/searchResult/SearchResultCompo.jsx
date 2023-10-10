@@ -52,15 +52,19 @@ const SearchResultCompo = () => {
       ) : !data?.success ? (
         <Error message={data?.message}></Error>
       ) : (
-        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          <MapCardCompo items={data?.jobPosts}></MapCardCompo>
-        </div>
+        <>
+          <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <MapCardCompo items={data?.jobPosts}></MapCardCompo>
+          </div>
+          {!data.jobPosts && (
+            <Pagination
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              totalPage={totalPage}
+            ></Pagination>
+          )}
+        </>
       )}
-      <Pagination
-        setCurrentPage={setCurrentPage}
-        currentPage={currentPage}
-        totalPage={totalPage}
-      ></Pagination>
     </section>
   );
 };

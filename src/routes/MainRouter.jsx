@@ -17,6 +17,7 @@ import AllUsers from "../pages/myAccount/allUsers/AllUsers";
 import MyApplication from "../pages/myAccount/myApplications/MyApplication";
 import PrivateRouter from "./PrivateRouter";
 import AdminRouter from "./AdminRouter";
+import AddBlog from "../pages/myAccount/addBlog/AddBlog";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -91,6 +92,10 @@ export const router = createBrowserRouter([
             <AllUsers></AllUsers>
           </AdminRouter>
         ),
+      },
+      {
+        path: "/my-account/post-a-blog",
+        element: <AddBlog></AddBlog>,
       },
     ],
   },

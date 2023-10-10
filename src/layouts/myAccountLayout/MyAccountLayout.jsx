@@ -3,7 +3,13 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
 import { AiFillHome, AiOutlineGlobal, AiOutlineMenu } from "react-icons/ai";
 import { FiLogOut, FiUsers } from "react-icons/fi";
-import { FaBloggerB, FaDownload, FaFileUpload, FaUser } from "react-icons/fa";
+import {
+  FaBlog,
+  FaBloggerB,
+  FaDownload,
+  FaFileUpload,
+  FaUser,
+} from "react-icons/fa";
 import { BsFillCreditCard2BackFill, BsFillPenFill } from "react-icons/bs";
 import { successMessage } from "../../commonFuntions/successMessage";
 import useIsAdmin from "../../hooks/useIsAdmin";
@@ -56,6 +62,13 @@ const MyAccountLayout = () => {
       link: "/my-account/all-users",
       isAdminAccess: true,
       access: false,
+    },
+    {
+      id: 6,
+      text: "Post A Blog",
+      link: "/my-account/post-a-blog",
+      isAdminAccess: true,
+      access: true,
     },
   ];
   // navigate hook
@@ -144,6 +157,13 @@ const MyAccountLayout = () => {
                   <p className=" flex items-center space-x-2 ">
                     <span>
                       <FiUsers></FiUsers>
+                    </span>
+                    <span>{item.text} </span>
+                  </p>
+                ) : item.text === "Post A Blog" ? (
+                  <p className=" flex items-center space-x-2 ">
+                    <span>
+                      <FaBlog></FaBlog>
                     </span>
                     <span>{item.text} </span>
                   </p>

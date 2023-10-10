@@ -6,15 +6,22 @@ import Error from "../../shared/error/Error";
 import { AiFillCheckCircle } from "react-icons/ai";
 
 const MyProfile = () => {
-  const { user } = useContext(AuthContextProvider);
-  const url = `user-data?email=${user?.email}`;
-  const [isLoading, data] = useLoadData("user-data", url);
+  const { user } = useContext(AuthContextProvider); // auth context
+
+  // use load data custom hook
+  const [isLoading, data] = useLoadData(
+    "user-data",
+    `user-data?email=${user?.email}`
+  );
+
   if (isLoading) {
     return <Loader></Loader>;
   }
+
   if (!data?.success) {
     return <Error message={data?.message} />;
   }
+
   return (
     <section className="  mt-10 w-full lg:w-11/12 mx-auto">
       <div className="bg-base-300 rounded-t-3xl">
@@ -74,7 +81,11 @@ const MyProfile = () => {
               </tr>
               <tr>
                 <th>Action</th>
-                <td><button className=" btn btn-error btn-sm rounded">Delete Account</button></td>
+                <td>
+                  <button className=" btn btn-error btn-sm rounded">
+                    Delete Account
+                  </button>
+                </td>
               </tr>
             </tbody>
           </table>

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { errorMessageHandeler } from "../../commonFuntions/errorMessageHandeler";
 import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
-import { successMessage } from "../../commonFuntions/successMessage";
+import usePostData from "../../hooks/usePostData";
 
 const PostJob = () => {
   // contexts
@@ -14,10 +14,16 @@ const PostJob = () => {
     formState: { errors },
     reset,
   } = useForm();
+
+  //   post data custom hook
+  const [postLoader, postData] = usePostData(
+    `post-job?email=${user.email}`,
+    reset
+  );
+
   //   states
   const [experienceFields, setExperienceFields] = useState([""]);
   const [skillsFields, setSkillsField] = useState([""]);
-  const [loading, setLoading] = useState(false);
 
   // handle dynamic field
   const handelDynamicField = (arrary, setArray) => {
@@ -39,7 +45,6 @@ const PostJob = () => {
   // handle post job
 
   const handlePostJob = async (data) => {
-    setLoading(true);
     // job post data
     const jobPostData = {
       job_title: data.jobTitle,
@@ -64,26 +69,10 @@ const PostJob = () => {
       description: data.description,
     };
 
-    // post url
-    const url = `http://localhost:5000/post-job`;
-
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(jobPostData),
-    });
-    const postResponse = await res.json();
-    if (postResponse.success) {
-      successMessage(postResponse.message);
-      setLoading(false);
-      reset();
-    } else {
-      errorMessageHandeler(postResponse.message);
-      setLoading(false);
-    }
+    // post data custom hook
+    await postData(jobPostData);
   };
+
   return (
     <section className="pb-5">
       <form onSubmit={handleSubmit(handlePostJob)}>
@@ -402,7 +391,7 @@ const PostJob = () => {
           <div className=" divider"></div>
         </div>
         <div className=" flex justify-center w-full lg:w-1/5 mx-auto">
-          {loading ? (
+          {postLoader ? (
             <button className="btn btn-primary w-full">
               Uploading
               <span className="loading loading-spinner"></span>

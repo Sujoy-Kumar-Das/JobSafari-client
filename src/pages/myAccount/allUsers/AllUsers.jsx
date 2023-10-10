@@ -10,8 +10,8 @@ import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandel
 
 const AllUsers = () => {
   // contexts
-  const { userDelete } = useContext(AuthContextProvider);
-  const url = `all-users`;
+  const { userDelete, user } = useContext(AuthContextProvider);
+  const url = `all-users?email=${user.email}`;
   const [isLoading, data] = useLoadData("all-users", url);
 
   // handle delete user
