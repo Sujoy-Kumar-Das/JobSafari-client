@@ -17,9 +17,11 @@ import Loader from "../../pages/shared/loaders/Loader";
 
 const MyAccountLayout = () => {
   // contexts
-  const { user, logOutUser } = useContext(AuthContextProvider); // auth context
+  const { user, loading, logOutUser } = useContext(AuthContextProvider); // auth context
 
   const [isAdmin, adminLoading] = useIsAdmin(user?.email); // is admin custom hook
+
+  // menu items
   const menuItems = [
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Posts", link: "/job-posts" },
@@ -27,6 +29,7 @@ const MyAccountLayout = () => {
     { id: 4, text: "Blogs", link: "/blogs" },
   ];
 
+  // my account items
   const myProfileItems = [
     {
       id: 1,
@@ -71,6 +74,7 @@ const MyAccountLayout = () => {
       access: true,
     },
   ];
+
   // navigate hook
   const navigate = useNavigate();
 
@@ -81,9 +85,10 @@ const MyAccountLayout = () => {
     navigate("/");
   };
 
-  if (adminLoading) {
+  if (adminLoading || loading) {
     return <Loader />;
   }
+
   return (
     <div className=" flex flex-col-reverse lg:flex-row-reverse justify-between lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

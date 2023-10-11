@@ -6,12 +6,12 @@ import Loader from "../pages/shared/loaders/Loader";
 const PrivateRouter = ({ children }) => {
   const { user, loading } = useContext(AuthContextProvider);
   const location = useLocation();
+
   if (loading) {
     return <Loader />;
   }
-  if (user && user?.uid) {
-    return children;
-  } else {
+
+  if (!user) {
     return (
       <Navigate
         state={{ from: location }}
@@ -20,6 +20,8 @@ const PrivateRouter = ({ children }) => {
       ></Navigate>
     );
   }
+
+  return children;
 };
 
 export default PrivateRouter;

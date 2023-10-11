@@ -26,6 +26,7 @@ const AuthContext = ({ children }) => {
   // google provider
   const googleProvider = new GoogleAuthProvider();
   const faceBookProvider = new FacebookAuthProvider();
+
   // create user with google
   const singInWithGoogle = () => {
     setLoading(true);
@@ -57,7 +58,6 @@ const AuthContext = ({ children }) => {
   // singout user
   const logOutUser = () => {
     setLoading(true);
-    Cookies.remove("accessToken")
     return signOut(auth);
   };
 
@@ -77,18 +77,21 @@ const AuthContext = ({ children }) => {
         const data = await res.json();
         if (data.success) {
           Cookies.set("accessToken", `bearer ${data.token}`);
-          setUser(currentUser);
-          setLoading(false);
         } else {
           errorMessageHandeler(data.message);
-          setLoading(false);
         }
+      } else {
+        Cookies.remove("accessToken");
       }
+      setLoading(false);
+      setUser(currentUser);
     });
     return () => {
       unSubscribe();
     };
   }, []);
+
+  console.log(loading, user, Cookies.get("accessToken"));
   const authInfo = {
     loading,
     setLoading,

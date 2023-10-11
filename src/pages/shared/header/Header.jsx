@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { successMessage } from "../../../commonFuntions/successMessage";
+import PageLoader from "../loaders/PageLoader";
 
 const Header = () => {
   // contexts
-  const { user, logOutUser } = useContext(AuthContextProvider);
+  const { user, logOutUser, loading } = useContext(AuthContextProvider);
   const menuItems = [
     { id: 1, text: "Home", link: "/home" },
     { id: 2, text: "Job Posts", link: "/job-posts" },
@@ -32,6 +33,7 @@ const Header = () => {
       successMessage(`Logout succesfully`);
     });
   };
+  
   return (
     <nav className="navbar flex justify-between sticky top-0 left-0 bg-base-200 px-5 z-50">
       <div className=" flex items-center">

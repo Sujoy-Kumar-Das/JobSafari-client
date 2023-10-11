@@ -65,10 +65,6 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/my-account",
-        element: <MyProfile></MyProfile>,
-      },
-      {
         path: "/my-account/my-profile",
         element: <MyProfile></MyProfile>,
       },

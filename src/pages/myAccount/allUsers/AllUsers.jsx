@@ -64,6 +64,7 @@ const AllUsers = () => {
       Swal.fire(`You Canceled make admin proccess ${user.name}`);
     }
   };
+  
   if (isLoading) {
     return <Loader />;
   }

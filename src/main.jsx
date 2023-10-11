@@ -8,10 +8,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <AuthContext>
       <App />
       <ToastContainer />
     </AuthContext>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
