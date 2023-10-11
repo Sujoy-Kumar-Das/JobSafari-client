@@ -88,7 +88,6 @@ const MyAccountLayout = () => {
   if (adminLoading || loading) {
     return <Loader />;
   }
-
   return (
     <div className=" flex flex-col-reverse lg:flex-row-reverse justify-between lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />

@@ -11,14 +11,30 @@ import SocialInfo from "./socialInfo/SocialInfo";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
+import usePUTData from "../../../hooks/usePUTData";
+import LoadingButton from "../../../components/buttons/LoadingButton";
 const EditResume = () => {
   const { user } = useContext(AuthContextProvider); // auth context provider
+
+  // react hook form
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+
+  // use put data custom hook for put method
+  const [putLoader, putDataMethod] = usePUTData(
+    `post-my-resume?email=${user.email}`,
+    reset
+  );
+
+  // use load data custom hook for load data
+  const [isLoading, data] = useLoadData(
+    "my-resumes",
+    `my-resumes?email=${user?.email}`
+  );
 
   // states
   const [experienceFields, setExperienceField] = useState([{}]); // state for experience fields
@@ -30,10 +46,7 @@ const EditResume = () => {
     const array = str.split(",");
     return array;
   };
-  // load resume url
-  const url = `my-resumes?email=${user?.email}`;
 
-  const [isLoading, data] = useLoadData("my-resumes", url);
   // genarate resmue
   const handleGenarateResume = async (data) => {
     const expertise = convertStrToArray(data.expertise);
@@ -62,20 +75,9 @@ const EditResume = () => {
       experience: experienceFields,
       education: myEducationFields,
     };
-    const res = await fetch(`http://localhost:5000/post-my-resume`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(myResmeData),
-    });
-    const postResumeData = await res.json();
-    if (!postResumeData.success) {
-      errorMessageHandeler(postResumeData.message);
-      reset();
-    } else {
-      successMessage(postResumeData.message);
-    }
+
+    // put data custom hook
+    await putDataMethod(myResmeData);
   };
   if (isLoading) {
     return <Loader></Loader>;
@@ -138,9 +140,8 @@ const EditResume = () => {
           myEducationFields={myEducationFields}
           setmyEducationFields={setMyEducationFields}
         ></MyEducation>
-        <button className={` btn  w-full mt-5 btn-primary `}>
-          Genarate Resume
-        </button>
+        {/* loading button */}
+        <LoadingButton loader={putLoader}>Genarate Resume</LoadingButton>
       </form>
     </section>
   );

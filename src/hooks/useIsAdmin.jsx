@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 
 const useIsAdmin = (email) => {
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [adminLoading, setAdminLoading] = useState(true);
-  useEffect(() => {
-    if (email) {
-      fetch(`http://localhost:5000/is-admin/${email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setIsAdmin(data.admin);
-          setAdminLoading(false);
-        });
-    }
-  }, [email]);
+  const { data: isAdmin, isLoading: adminLoading } = useQuery({
+    queryKey: ["is-admin"],
+    queryFn: async () => {
+      if (email) {
+        const res = await fetch(`http://localhost:5000/is-admin/${email}`);
+        const adminRes = await res.json();
+        return adminRes.admin;
+      }
+    },
+  });
   return [isAdmin, adminLoading];
 };
 

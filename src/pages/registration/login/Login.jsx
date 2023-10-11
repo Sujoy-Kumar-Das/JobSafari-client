@@ -3,19 +3,19 @@ import Socail from "../social/Socail";
 import { useForm } from "react-hook-form";
 import image from "../../../assets/loginBgImage.png";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
-import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 import { successMessage } from "../../../commonFuntions/successMessage";
+import LoadingButton from "../../../components/buttons/LoadingButton";
 
 const Login = () => {
   // constexts
   const { loginUser } = useContext(AuthContextProvider);
 
   // states
-  const [userType, setUserType] = useState("Job Seeker");
   const [loading, setLoading] = useState(false);
   const [firebaseError, setFirebaseError] = useState("");
+
   // hooks
   const {
     register,
@@ -108,16 +108,8 @@ const Login = () => {
                   "Wrong password"}
               </p>
             )}
-            <button className={`btn w-full mt-5 btn-primary`}>
-              {loading ? (
-                <>
-                  <span>Singed in</span>
-                  <span className=" loading loading-dots loading-sm"></span>
-                </>
-              ) : (
-                "Sing In"
-              )}
-            </button>
+
+            <LoadingButton loader={loading}>Login</LoadingButton>
           </form>
           <label className="label">
             <span className="label-text">
@@ -129,8 +121,8 @@ const Login = () => {
           </label>
           <label className="label">
             <span className="label-text">
-              New to Doctors Portal?{" "}
-              <Link to={"/registration/singup"} className=" btn-link">
+              New to JobSafari?{" "}
+              <Link to={"/resgistration/sing-up"} className=" btn-link">
                 Create new account
               </Link>
             </span>

@@ -14,14 +14,8 @@ const Header = () => {
     { id: 4, text: "My Account", link: "/my-account/my-profile" },
     { id: 6, text: "Blogs", link: "/blogs" },
     {
-      id: 8,
-      text: "Sing up",
-      link: "/resgistration/sing-up",
-      user: user ? true : false,
-    },
-    {
-      id: 9,
-      text: "Sing In",
+      id: 7,
+      text: "Login",
       link: "/resgistration/sing-in",
       user: user ? true : false,
     },
@@ -33,7 +27,7 @@ const Header = () => {
       successMessage(`Logout succesfully`);
     });
   };
-  
+
   return (
     <nav className="navbar flex justify-between sticky top-0 left-0 bg-base-200 px-5 z-50">
       <div className=" flex items-center">

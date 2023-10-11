@@ -91,7 +91,6 @@ const AuthContext = ({ children }) => {
     };
   }, []);
 
-  console.log(loading, user, Cookies.get("accessToken"));
   const authInfo = {
     loading,
     setLoading,

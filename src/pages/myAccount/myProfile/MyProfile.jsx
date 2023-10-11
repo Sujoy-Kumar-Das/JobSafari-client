@@ -25,11 +25,12 @@ const MyProfile = () => {
   return (
     <section className="  mt-10 w-full lg:w-11/12 mx-auto">
       <div className="bg-base-300 rounded-t-3xl">
-        <div className=" flex items-center gap-x-3 ps-10 pt-10 relative top-24  ">
-          <img
-            className="rounded-full w-32 border-4 border-blue-700 "
-            src={data?.user?.image}
-          />
+        <div className=" flex items-center gap-x-3 ps-10 pt-10 relative top-20  ">
+          <div className="avatar">
+            <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src={data?.user?.image} />
+            </div>
+          </div>
 
           <div>
             <p className=" text-lg flex items-center gap-x-2">
@@ -44,7 +45,7 @@ const MyProfile = () => {
           </div>
         </div>
       </div>
-      <div className=" mt-36  w-4/5 mx-auto">
+      <div className=" mt-28  w-4/5 mx-auto">
         <div className="overflow-x-auto ">
           <table className="table">
             <tbody className=" text-center">

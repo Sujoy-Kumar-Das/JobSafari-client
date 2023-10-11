@@ -5,10 +5,8 @@ import Socail from "../social/Socail";
 import { validateImage } from "../../../commonFuntions/validatedImage";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { uploadImage } from "../../../commonFuntions/uploadImage";
-import { Link } from "react-router-dom";
-import { storeUsersInfo } from "../../../commonFuntions/storeUser";
-import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
-import { successMessage } from "../../../commonFuntions/successMessage";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import usePUTData from "../../../hooks/usePUTData";
 
 const SingUp = () => {
   // states
@@ -24,6 +22,13 @@ const SingUp = () => {
     formState: { errors },
     reset,
   } = useForm();
+
+  const location = useLocation(); // use locaion hook
+  const from = location?.state?.from?.pathname || "/"; // get location where user want to go
+  const navigate = useNavigate(); // use navigate hook
+
+  // use put data custom hook for put method
+  const [putLoader, putDataMethod] = usePUTData(`store-user`, reset);
 
   // contexts
   const { createUser, updateUserInfo } = useContext(AuthContextProvider);
@@ -56,16 +61,9 @@ const SingUp = () => {
         post: data.post,
       };
       // Store user information
-      const result = await storeUsersInfo(userData);
-
-      if (result.success) {
-        successMessage(result.message);
-        setAccpet(false);
-        reset();
-      } else {
-        errorMessageHandeler(result.message);
-        setAccpet(false);
-      }
+      putDataMethod(userData);
+      navigate(from, { replace: true });
+      setAccpet(false);
     } catch (error) {
       setFirebaseError(error.message);
       console.log(error);
