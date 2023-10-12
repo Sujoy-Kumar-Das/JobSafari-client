@@ -21,6 +21,7 @@ import AddBlog from "../pages/myAccount/addBlog/AddBlog";
 import MyBlogs from "../pages/myAccount/myBlogs/MyBlogs";
 import Blogs from "../pages/blogs/Blogs";
 import BlogDetail from "../pages/blogs/BlogDetail";
+import MyJobPosts from "../pages/myAccount/myJobPosts/MyJobPosts";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -101,6 +102,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-account/my-blogs",
         element: <MyBlogs></MyBlogs>,
+      },
+      {
+        path: "/my-account/my-job-posts",
+        element: <MyJobPosts></MyJobPosts>,
       },
     ],
   },

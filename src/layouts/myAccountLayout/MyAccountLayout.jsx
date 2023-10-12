@@ -3,6 +3,7 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import { AuthContextProvider } from "../../contexts/AuthContext/AuthContext";
 import { AiFillHome, AiOutlineGlobal, AiOutlineMenu } from "react-icons/ai";
 import { FiLogOut, FiUsers } from "react-icons/fi";
+import { BiNetworkChart } from "react-icons/bi";
 import {
   FaBlog,
   FaBloggerB,
@@ -59,7 +60,13 @@ const MyAccountLayout = () => {
       isAdminAccess: true,
       access: true,
     },
-
+    {
+      id: 8,
+      text: "My Job Posts",
+      link: "/my-account/my-job-posts",
+      isAdminAccess: true,
+      access: true,
+    },
     {
       id: 6,
       text: "Post A Blog",
@@ -183,6 +190,13 @@ const MyAccountLayout = () => {
                   <p className=" flex items-center space-x-2 ">
                     <span>
                       <FaBloggerB></FaBloggerB>
+                    </span>
+                    <span>{item.text} </span>
+                  </p>
+                ) : item.text === "My Job Posts" ? (
+                  <p className=" flex items-center space-x-2 ">
+                    <span>
+                      <BiNetworkChart/>
                     </span>
                     <span>{item.text} </span>
                   </p>
