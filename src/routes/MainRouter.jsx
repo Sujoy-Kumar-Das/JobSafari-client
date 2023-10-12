@@ -18,6 +18,7 @@ import MyApplication from "../pages/myAccount/myApplications/MyApplication";
 import PrivateRouter from "./PrivateRouter";
 import AdminRouter from "./AdminRouter";
 import AddBlog from "../pages/myAccount/addBlog/AddBlog";
+import MyBlogs from "../pages/myAccount/myBlogs/MyBlogs";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
       {
         path: "/my-account/post-a-blog",
         element: <AddBlog></AddBlog>,
+      },
+      {
+        path: "/my-account/my-blogs",
+        element: <MyBlogs></MyBlogs>,
       },
     ],
   },

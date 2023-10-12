@@ -7,12 +7,20 @@ import Swal from "sweetalert2";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { successMessage } from "../../../commonFuntions/successMessage";
 import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
+import useDelete from "../../../hooks/useDelete";
 
 const AllUsers = () => {
   // contexts
   const { userDelete, user } = useContext(AuthContextProvider);
-  const url = `all-users?email=${user.email}`;
-  const [isLoading, data] = useLoadData("all-users", url);
+
+  // user delete custom hook for delete items
+  const [deleteLoader, deleteMethod] = useDelete();
+
+  // use load data custom hook for load data
+  const [isLoading, data, refetch] = useLoadData(
+    "all-users",
+    `all-users?email=${user.email}`
+  );
 
   // handle delete user
   const handleDeleteUser = async (user) => {
@@ -23,16 +31,8 @@ const AllUsers = () => {
       denyButtonText: `Cancel`,
     });
     if (result.isConfirmed) {
-      const res = await fetch(`http://localhost:5000/delete-user/${user._id}`, {
-        method: "DELETE",
-      });
-      const data = await res.json();
-      if (data.success) {
-        await userDelete();
-        successMessage(data.message);
-      } else {
-        errorMessageHandeler(data.message);
-      }
+      // delete user custom hook method
+      await deleteMethod(`delete-user/${user._id}`, refetch);
     } else {
       Swal.fire("You Canceled the deletation.");
     }
@@ -64,7 +64,7 @@ const AllUsers = () => {
       Swal.fire(`You Canceled make admin proccess ${user.name}`);
     }
   };
-  
+
   if (isLoading) {
     return <Loader />;
   }

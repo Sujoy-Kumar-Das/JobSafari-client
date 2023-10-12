@@ -59,19 +59,27 @@ const MyAccountLayout = () => {
       isAdminAccess: true,
       access: true,
     },
-    {
-      id: 5,
-      text: "All Users",
-      link: "/my-account/all-users",
-      isAdminAccess: true,
-      access: false,
-    },
+
     {
       id: 6,
       text: "Post A Blog",
       link: "/my-account/post-a-blog",
       isAdminAccess: true,
       access: true,
+    },
+    {
+      id: 7,
+      text: "My Blogs",
+      link: "/my-account/my-blogs",
+      isAdminAccess: true,
+      access: true,
+    },
+    {
+      id: 5,
+      text: "All Users",
+      link: "/my-account/all-users",
+      isAdminAccess: true,
+      access: false,
     },
   ];
 
@@ -168,6 +176,13 @@ const MyAccountLayout = () => {
                   <p className=" flex items-center space-x-2 ">
                     <span>
                       <FaBlog></FaBlog>
+                    </span>
+                    <span>{item.text} </span>
+                  </p>
+                ) : item.text === "My Blogs" ? (
+                  <p className=" flex items-center space-x-2 ">
+                    <span>
+                      <FaBloggerB></FaBloggerB>
                     </span>
                     <span>{item.text} </span>
                   </p>

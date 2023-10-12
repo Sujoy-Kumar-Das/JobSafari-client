@@ -7,9 +7,13 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 import { successMessage } from "../../../commonFuntions/successMessage";
+import useDelete from "../../../hooks/useDelete";
 
 const MyApplication = () => {
   const { user } = useContext(AuthContextProvider); // auth contex
+
+  // user delete custom hook for delete items
+  const [deleteLoader, deleteMethod] = useDelete();
 
   const url = `my-job-applications/${user?.email}`; // url for load my applications
   const [isLoading, data, refetch] = useLoadData("/post-application", url); // use load data custom hook
@@ -24,19 +28,12 @@ const MyApplication = () => {
     });
 
     if (result.isConfirmed) {
-      const res = await fetch(
-        `http://localhost:5000/delete-my-job-application/${jobApplication._id}`,
-        {
-          method: "DELETE",
-        }
+      // custom hooks function for delete data
+
+      await deleteMethod(
+        `delete-my-job-application/${jobApplication._id}`,
+        refetch
       );
-      const data = await res.json();
-      if (!data.success) {
-        errorMessageHandeler(data.message);
-      } else {
-        successMessage(data.message);
-        refetch();
-      }
     } else {
       Swal.fire(`You canceled the process.`);
     }
