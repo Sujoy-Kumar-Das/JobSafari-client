@@ -19,6 +19,8 @@ import PrivateRouter from "./PrivateRouter";
 import AdminRouter from "./AdminRouter";
 import AddBlog from "../pages/myAccount/addBlog/AddBlog";
 import MyBlogs from "../pages/myAccount/myBlogs/MyBlogs";
+import Blogs from "../pages/blogs/Blogs";
+import BlogDetail from "../pages/blogs/BlogDetail";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +42,8 @@ export const router = createBrowserRouter([
         path: "/job-search",
         element: <SearchResultCompo></SearchResultCompo>,
       },
+      { path: "/blogs", element: <Blogs></Blogs> },
+      { path: "/blog/detail/:id", element: <BlogDetail></BlogDetail> },
       { path: "*", element: <Error></Error> },
     ],
   },
