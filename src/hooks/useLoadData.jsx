@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import Cookies from "js-cookie";
 
 const useLoadData = (key, urlEndPoint) => {
-  const url = `https://job-safari-server-sujoy-kumar-das.vercel.app/${urlEndPoint}`;
+  const url = `http://localhost:5000/${urlEndPoint}`;
   const { data, isLoading, refetch } = useQuery([urlEndPoint], {
     queryKey: [key],
     queryFn: async () => {

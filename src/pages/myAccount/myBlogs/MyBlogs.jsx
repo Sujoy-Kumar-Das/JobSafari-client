@@ -64,7 +64,7 @@ const MyBlogs = () => {
             </tr>
           </thead>
           <tbody>
-            {data.myBlogs.map((myBlog, index) => (
+            {data?.myBlogs?.map((myBlog, index) => (
               <tr className=" hover">
                 <th>{index + 1}</th>
                 <td>{myBlog.blog_title}</td>

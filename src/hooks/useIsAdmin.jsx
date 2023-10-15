@@ -5,9 +5,7 @@ const useIsAdmin = (email) => {
     queryKey: ["is-admin"],
     queryFn: async () => {
       if (email) {
-        const res = await fetch(
-          `https://job-safari-server-sujoy-kumar-das.vercel.app/is-admin/${email}`
-        );
+        const res = await fetch(`http://localhost:5000/is-admin/${email}`);
         const adminRes = await res.json();
         return adminRes.admin;
       }

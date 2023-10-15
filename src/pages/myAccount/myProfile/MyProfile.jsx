@@ -43,7 +43,7 @@ const MyProfile = () => {
     });
     if (result.isConfirmed) {
       // delete user custom hook method
-      await deleteMethod(`delete-user/${userData._id}`, refetch);
+      await deleteMethod(`delete-user-my-profile/${userData._id}`, refetch);
       navigae("/");
       await userDelete();
     } else {

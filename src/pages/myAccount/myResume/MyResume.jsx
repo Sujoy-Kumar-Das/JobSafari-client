@@ -43,17 +43,17 @@ const MyResume = () => {
         <div ref={targetRef} style={{ width: "100%", height: "100%" }}>
           <div>
             <h1 className=" text-4xl font-bold text-left uppercase">
-              {data.resume.name}
+              {data?.resume?.name}
             </h1>
             <h3 className=" text-xl  text-left uppercase">
-              {userData.user.post}
+              {userData?.user?.post}
             </h3>
 
             {/* social links, contact information and address */}
             <div>
               <div className=" my-1 flex gap-x-2 justify-start">
                 <Link className=" btn-link">{user.email}</Link>
-                {data.resume.social.map((socialAccount, index) => (
+                {data?.resume?.social?.map((socialAccount, index) => (
                   <Link
                     className={` btn-link ${!socialAccount.link && "hidden"}`}
                     key={index}
@@ -71,19 +71,19 @@ const MyResume = () => {
                   </Link>
                 ))}
               </div>
-              <p>{data.resume.mobile}</p>
-              <p>{data.resume.address}</p>
+              <p>{data?.resume?.mobile}</p>
+              <p>{data?.resume?.address}</p>
             </div>
             <div className="border-b-2 border-black my-3"></div>
           </div>
 
           {/* careerObjective */}
-          {data.resume.careerObjective && (
+          {data?.resume?.careerObjective && (
             <div className=" my-5">
               <h1 className=" text-xl font-bold uppercase mb-1 ">
                 Carrer Objective
               </h1>
-              <p className=" text-base">{data.resume.careerObjective}</p>
+              <p className=" text-base">{data?.resume?.careerObjective}</p>
               <div className="border-b-2 border-black my-5"></div>
             </div>
           )}
@@ -92,7 +92,7 @@ const MyResume = () => {
           {data?.resume?.experience[0]?.name && (
             <div className=" my-3">
               <h1 className=" text-xl font-bold uppercase">experience</h1>
-              {data.resume.experience.map((experience, index) => (
+              {data?.resume?.experience?.map((experience, index) => (
                 <div key={index}>
                   <h3 className=" text-lg font-medium">
                     I works at <strong>{experience.companyName}</strong> as a{" "}
@@ -109,7 +109,7 @@ const MyResume = () => {
           )}
 
           {/* skills */}
-          {data.resume.skills && (
+          {data?.resume?.skills && (
             <div className=" my-3">
               <h1 className=" text-xl font-bold uppercase">Skills</h1>
 
@@ -120,7 +120,7 @@ const MyResume = () => {
                     <tr>
                       <th className=" ps-0">Experties</th>
                       <td className=" font-medium text-base">
-                        {data.resume.skills[0].expertise.map(
+                        {data?.resume?.skills[0]?.expertise?.map(
                           (expertSkill, index) => (
                             <span key={index}>{expertSkill}</span>
                           )
@@ -132,7 +132,7 @@ const MyResume = () => {
                     <tr>
                       <th className=" ps-0">Comfortable</th>
                       <td className=" font-medium text-base">
-                        {data.resume.skills[1].comfortable.map(
+                        {data?.resume?.skills[1]?.comfortable?.map(
                           (comfortableSkill, index) => (
                             <span key={index}>{comfortableSkill}</span>
                           )
@@ -144,7 +144,7 @@ const MyResume = () => {
                     <tr>
                       <th className=" ps-0">Familiar</th>
                       <td className=" font-medium text-base">
-                        {data.resume.skills[2].familiar.map(
+                        {data?.resume?.skills[2]?.familiar?.map(
                           (familiarSkill, index) => (
                             <span key={index}>{familiarSkill}</span>
                           )
@@ -156,7 +156,7 @@ const MyResume = () => {
                     <tr>
                       <th className=" ps-0">Tools</th>
                       <td className=" font-medium text-base">
-                        {data.resume.skills[3].tools.map((tool, index) => (
+                        {data?.resume?.skills[3]?.tools?.map((tool, index) => (
                           <span key={index}>{tool}</span>
                         ))}
                       </td>
@@ -172,7 +172,7 @@ const MyResume = () => {
           {data?.resume?.projects[0]?.name && (
             <div className=" my-3">
               <h1 className=" text-xl font-bold uppercase">Projects</h1>
-              {data.resume.projects.map((project, index) => (
+              {data?.resume?.projects?.map((project, index) => (
                 <div key={index}>
                   <h3 className=" text-lg font-medium uppercase mt-2 mb-1">
                     {" "}
@@ -190,7 +190,7 @@ const MyResume = () => {
           {data?.resume?.education[0]?.name && (
             <div className=" my-3">
               <h1 className=" text-xl font-bold uppercase">education</h1>
-              {data.resume.education.map((educationData, index) => (
+              {data?.resume?.education?.map((educationData, index) => (
                 <div key={index}>
                   <h3 className=" text-lg font-medium uppercase mt-2 mb-1">
                     {" "}

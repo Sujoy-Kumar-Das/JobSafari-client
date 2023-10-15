@@ -131,6 +131,11 @@ const Login = () => {
           <Socail />
         </div>
       </div>
+      <div>
+        <p>Login with ....</p>
+        <p>Email: sujoykumardas@gmail.com</p>
+        <p>Password : Suju4321@</p>
+      </div>
     </section>
   );
 };

@@ -33,17 +33,14 @@ const AllUsers = () => {
       denyButtonText: `Cancel`,
     });
     if (result.isConfirmed) {
-      const res = await fetch(
-        `https://job-safari-server-sujoy-kumar-das.vercel.app/make-admin/${user._id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            admin: value,
-            authorization: Cookies.get("accessToken"),
-          },
-        }
-      );
+      const res = await fetch(`http://localhost:5000/make-admin/${user._id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          admin: value,
+          authorization: Cookies.get("accessToken"),
+        },
+      });
       const data = await res.json();
 
       if (data.success) {
@@ -52,6 +49,25 @@ const AllUsers = () => {
       } else {
         errorMessageHandeler(data.message);
       }
+    } else {
+      Swal.fire(`You canceled the process.`);
+    }
+  };
+
+  // handle delete
+  const handleDelete = async (deleteUser) => {
+    const result = await Swal.fire({
+      title: `Are you sure you want to delete ${deleteUser.name}`,
+      showDenyButton: true,
+      confirmButtonText: "YES",
+      denyButtonText: `Cancel`,
+    });
+    if (result.isConfirmed) {
+      // delete method from useDelete custom hook
+      await deleteMethod(
+        `delete-user/${deleteUser._id}?email=${user.email}`,
+        refetch
+      );
     } else {
       Swal.fire(`You canceled the process.`);
     }
@@ -123,6 +139,16 @@ const AllUsers = () => {
                       Make Admin
                     </button>
                   )}
+                </td>
+                <td>
+                  <button
+                    onClick={() => {
+                      handleDelete(user);
+                    }}
+                    className=" btn btn-outline btn-error btn-sm rounded"
+                  >
+                    <FaTrash />
+                  </button>
                 </td>
               </tr>
             ))}

@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 
 const usePostData = (url, reset) => {
   const [postLoader, setPostLoader] = useState(false);
-  const baseUrl = `https://job-safari-server-sujoy-kumar-das.vercel.app/${url}`;
+  const baseUrl = `http://localhost:5000/${url}`;
 
   const postData = async (bodyData) => {
     setPostLoader(true);

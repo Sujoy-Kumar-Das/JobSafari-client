@@ -9,7 +9,7 @@ const useDelete = () => {
 
   //   delete funtion
   const deleteMethod = async (urlEndPoint, refetch) => {
-    const url = `https://job-safari-server-sujoy-kumar-das.vercel.app/${urlEndPoint}`;
+    const url = `http://localhost:5000/${urlEndPoint}`;
 
     setDeleteLoader(true);
 
