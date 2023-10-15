@@ -77,7 +77,7 @@ const AuthContext = ({ children }) => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         const res = await fetch(
-          `http://localhost:5000/get-jwt-token?email=${currentUser?.email}`
+          `https://job-safari-server-sujoy-kumar-das.vercel.app/get-jwt-token?email=${currentUser?.email}`
         );
         const data = await res.json();
         if (data.success) {

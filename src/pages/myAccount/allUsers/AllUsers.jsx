@@ -33,14 +33,17 @@ const AllUsers = () => {
       denyButtonText: `Cancel`,
     });
     if (result.isConfirmed) {
-      const res = await fetch(`http://localhost:5000/make-admin/${user._id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          admin: value,
-          authorization: Cookies.get("accessToken"),
-        },
-      });
+      const res = await fetch(
+        `https://job-safari-server-sujoy-kumar-das.vercel.app/make-admin/${user._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            admin: value,
+            authorization: Cookies.get("accessToken"),
+          },
+        }
+      );
       const data = await res.json();
 
       if (data.success) {

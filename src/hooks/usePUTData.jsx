@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 const usePUTData = (urlEndPoint, reset) => {
   const [putLoader, setPutLoader] = useState(false);
 
-  const url = `http://localhost:5000/${urlEndPoint}`;
+  const url = `https://job-safari-server-sujoy-kumar-das.vercel.app/${urlEndPoint}`;
 
   const putDataMethod = async (modifiedData) => {
     setPutLoader(true);
