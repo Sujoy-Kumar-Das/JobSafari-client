@@ -5,8 +5,6 @@ import Loader from "../../shared/loaders/Loader";
 import Error from "../../shared/error/Error";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
-import { successMessage } from "../../../commonFuntions/successMessage";
 import useDelete from "../../../hooks/useDelete";
 
 const MyApplication = () => {

@@ -4,15 +4,42 @@ import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
 import Error from "../../shared/error/Error";
 import { AiFillCheckCircle } from "react-icons/ai";
+import Swal from "sweetalert2";
+import useDelete from "../../../hooks/useDelete";
+import { useNavigate } from "react-router-dom";
 
 const MyProfile = () => {
-  const { user } = useContext(AuthContextProvider); // auth context
+  const { user, userDelete, logOutUser } = useContext(AuthContextProvider); // auth context
 
+  // use navigae hook
+  const navigae = useNavigate();
   // use load data custom hook
-  const [isLoading, data] = useLoadData(
+  const [isLoading, data, refetch] = useLoadData(
     "user-data",
     `user-data?email=${user?.email}`
   );
+
+  // user delete custom hook for delete items
+  const [deleteLoader, deleteMethod] = useDelete();
+
+  // handle delete account
+  const handleDeleteAccount = async (userData) => {
+    const result = await Swal.fire({
+      title: `Are you sure ? You want to delete your account.`,
+      showDenyButton: true,
+      confirmButtonText: "Delete",
+      denyButtonText: `Cancel`,
+    });
+    if (result.isConfirmed) {
+      // delete user custom hook method
+      await deleteMethod(`delete-user/${userData._id}`, refetch);
+      await userDelete();
+      await logOutUser();
+      navigae("/");
+    } else {
+      Swal.fire("You Canceled the deletation.");
+    }
+  };
 
   if (isLoading) {
     return <Loader></Loader>;
@@ -83,8 +110,15 @@ const MyProfile = () => {
               <tr>
                 <th>Action</th>
                 <td>
-                  <button className=" btn btn-error btn-sm rounded">
-                    Delete Account
+                  <button
+                    onClick={() => handleDeleteAccount(data.user)}
+                    className=" btn btn-error btn-sm rounded"
+                  >
+                    {deleteLoader ? (
+                      <span className=" loading loading-spinner"></span>
+                    ) : (
+                      "Delete Account"
+                    )}
                   </button>
                 </td>
               </tr>

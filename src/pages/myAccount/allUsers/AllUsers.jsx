@@ -8,10 +8,11 @@ import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { successMessage } from "../../../commonFuntions/successMessage";
 import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 import useDelete from "../../../hooks/useDelete";
+import Cookies from "js-cookie";
 
 const AllUsers = () => {
   // contexts
-  const { userDelete, user } = useContext(AuthContextProvider);
+  const { user } = useContext(AuthContextProvider);
 
   // user delete custom hook for delete items
   const [deleteLoader, deleteMethod] = useDelete();
@@ -22,26 +23,10 @@ const AllUsers = () => {
     `all-users?email=${user.email}`
   );
 
-  // handle delete user
-  const handleDeleteUser = async (user) => {
-    const result = await Swal.fire({
-      title: `Are you sure ? You want to delete ${user.name}?`,
-      showDenyButton: true,
-      confirmButtonText: "Delete",
-      denyButtonText: `Cancel`,
-    });
-    if (result.isConfirmed) {
-      // delete user custom hook method
-      await deleteMethod(`delete-user/${user._id}`, refetch);
-    } else {
-      Swal.fire("You Canceled the deletation.");
-    }
-  };
-
   // handle admin
-  const handleAdmin = async (user) => {
+  const handleAdmin = async (user, value, text) => {
     const result = await Swal.fire({
-      title: `Are you sure ? You want to make admin ${user.name}?`,
+      title: `Are you sure you want to ${text} admin ${user.name}`,
       showDenyButton: true,
       confirmButtonText: "YES",
       denyButtonText: `Cancel`,
@@ -51,23 +36,27 @@ const AllUsers = () => {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          admin: value,
+          authorization: Cookies.get("accessToken"),
         },
       });
       const data = await res.json();
+
       if (data.success) {
-        await userDelete();
+        refetch();
         successMessage(data.message);
       } else {
         errorMessageHandeler(data.message);
       }
     } else {
-      Swal.fire(`You Canceled make admin proccess ${user.name}`);
+      Swal.fire(`You canceled the process.`);
     }
   };
 
   if (isLoading) {
     return <Loader />;
   }
+
   if (!data.success) {
     return <Error message={data.message} />;
   }
@@ -105,27 +94,24 @@ const AllUsers = () => {
                 <td>{user.post ? user.post : "NOT MENTIONED"}</td>
                 <td>
                   {user.admin ? (
-                    <button className=" btn btn-error btn-sm rounded">
+                    <button
+                      onClick={() => {
+                        handleAdmin(user, false, "remove");
+                      }}
+                      className=" btn btn-error btn-sm rounded"
+                    >
                       Remove Admin
                     </button>
                   ) : (
                     <button
                       onClick={() => {
-                        handleAdmin(user);
+                        handleAdmin(user, true, "admin");
                       }}
                       className=" btn btn-sm btn-primary rounded"
                     >
                       Make Admin
                     </button>
                   )}
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDeleteUser(user)}
-                    className=" btn btn-sm btn-error btn-outline"
-                  >
-                    <FaTrash />
-                  </button>
                 </td>
               </tr>
             ))}
