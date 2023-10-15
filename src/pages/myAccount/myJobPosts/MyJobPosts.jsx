@@ -6,6 +6,7 @@ import Error from "../../shared/error/Error";
 import { Link } from "react-router-dom";
 import useDelete from "../../../hooks/useDelete";
 import Swal from "sweetalert2";
+import TittleCompo from "../../../components/titleCompo/TittleCompo";
 
 const MyJobPosts = () => {
   // auth context
@@ -39,55 +40,66 @@ const MyJobPosts = () => {
     return <Loader />;
   }
   if (!data.success) {
-    return <Error message={data.message} />;
+    return (
+      <>
+        {" "}
+        <Error message={data.message} />
+        <TittleCompo title={"My Job Posts"}></TittleCompo>
+      </>
+    );
   }
   return (
-    <section className=" mt-20 w-11/12 mx-auto">
-      <h1 className=" text-3xl text-center uppercase  font-bold">All Users</h1>
-      <div className="overflow-x-auto mt-10">
-        <table className="table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Carrer Level</th>
-              <th>Posted Date</th>
-              <th>Deadline</th>
-              <th>Details</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {data.myJobPosts.map((myJobPost, index) => (
-              <tr key={myJobPost._id}>
-                <th>{index + 1}</th>
-                <td>{myJobPost.job_title}</td>
-                <td>{myJobPost.Career_level}</td>
-                <td>{myJobPost.datePosted}</td>
-                <td>{myJobPost.deadline}</td>
-                <td>
-                  <Link
-                    to={`/job-detail/${myJobPost._id}`}
-                    className=" btn btn-sm btn-primary rounded"
-                  >
-                    Detail
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    onClick={() => handleDeleteMyJobPost(myJobPost)}
-                    className=" btn btn-sm btn-error rounded"
-                  >
-                    Delete
-                  </button>
-                </td>
+    <>
+      <TittleCompo title={"My Job Posts"}></TittleCompo>
+      <section className=" mt-20 w-11/12 mx-auto">
+        <h1 className=" text-3xl text-center uppercase  font-bold">
+          All Users
+        </h1>
+        <div className="overflow-x-auto mt-10">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Carrer Level</th>
+                <th>Posted Date</th>
+                <th>Deadline</th>
+                <th>Details</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
+            </thead>
+
+            <tbody>
+              {data.myJobPosts.map((myJobPost, index) => (
+                <tr key={myJobPost._id}>
+                  <th>{index + 1}</th>
+                  <td>{myJobPost.job_title}</td>
+                  <td>{myJobPost.Career_level}</td>
+                  <td>{myJobPost.datePosted}</td>
+                  <td>{myJobPost.deadline}</td>
+                  <td>
+                    <Link
+                      to={`/job-detail/${myJobPost._id}`}
+                      className=" btn btn-sm btn-primary rounded"
+                    >
+                      Detail
+                    </Link>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleDeleteMyJobPost(myJobPost)}
+                      className=" btn btn-sm btn-error rounded"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </>
   );
 };
 

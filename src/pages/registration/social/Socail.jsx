@@ -24,7 +24,7 @@ const Socail = ({ setFirebaseError }) => {
         email: user.user.email,
         image: user.user.photoURL,
         role: "Job Seeker",
-        post: "not mentioned",
+        post: "Not mentioned",
       };
 
       // store user

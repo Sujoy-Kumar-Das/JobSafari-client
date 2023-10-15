@@ -9,6 +9,7 @@ import { successMessage } from "../../../commonFuntions/successMessage";
 import { errorMessageHandeler } from "../../../commonFuntions/errorMessageHandeler";
 import useDelete from "../../../hooks/useDelete";
 import Cookies from "js-cookie";
+import TittleCompo from "../../../components/titleCompo/TittleCompo";
 
 const AllUsers = () => {
   // contexts
@@ -58,10 +59,17 @@ const AllUsers = () => {
   }
 
   if (!data.success) {
-    return <Error message={data.message} />;
+    return (
+      <>
+        {" "}
+        <Error message={data.message} />
+        <TittleCompo title={"All Users"}></TittleCompo>
+      </>
+    );
   }
   return (
     <section className=" mt-20 w-11/12 mx-auto">
+      <TittleCompo title={"All Users"}></TittleCompo>
       <h1 className=" text-3xl text-center uppercase  font-bold">All Users</h1>
       <div className="overflow-x-auto mt-10">
         <table className="table">
@@ -91,7 +99,7 @@ const AllUsers = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.role}</td>
-                <td>{user.post ? user.post : "NOT MENTIONED"}</td>
+                <td>{user.post ? user.post : "Not mentioned"}</td>
                 <td>
                   {user.admin ? (
                     <button

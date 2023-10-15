@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContextProvider } from "../../../contexts/AuthContext/AuthContext";
 import { useForm } from "react-hook-form";
 import usePostData from "../../../hooks/usePostData";
+import TittleCompo from "../../../components/titleCompo/TittleCompo";
 
 const AddBlog = () => {
   const { user } = useContext(AuthContextProvider);
@@ -30,6 +31,7 @@ const AddBlog = () => {
   };
   return (
     <section className=" my-12 w-11/12 mx-auto">
+      <TittleCompo title={"Post Blog"}></TittleCompo>
       <h1 className=" text-3xl text-center  font-bold text-secondary">
         Hi {user.displayName} whats on your mind ? Let's share with other's..
       </h1>

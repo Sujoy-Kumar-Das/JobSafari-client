@@ -5,6 +5,7 @@ import useLoadData from "../../hooks/useLoadData";
 import MapCardCompo from "../../components/MapCardCompo/MapCardCompo";
 import SearchComponent from "../shared/searchComponent/SearchComponent";
 import Pagination from "../shared/pagination/Pagination";
+import TittleCompo from "../../components/titleCompo/TittleCompo";
 const AllJobPosts = () => {
   // current page state
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +21,7 @@ const AllJobPosts = () => {
   const totalPage = Math.ceil(totalData / itemsPerPage);
   return (
     <section>
+      <TittleCompo title={"Recent job posts"}></TittleCompo>
       <div className=" my-2 lg:my-5 w-full lg:w-3/5  mx-auto  bg-base-200 rounded-full flex justify-center items-center p-1">
         <SearchComponent
           fristDataName="Job Title"

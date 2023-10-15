@@ -10,6 +10,7 @@ import {
   FacebookAuthProvider,
   signOut,
   deleteUser,
+  sendEmailVerification,
 } from "firebase/auth";
 import app from "../../firebase/Firebase.init";
 import Cookies from "js-cookie";
@@ -55,6 +56,10 @@ const AuthContext = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  // verify email address
+  const verifyEmail = () => {
+    return sendEmailVerification(auth.currentUser);
+  };
   // singout user
   const logOutUser = () => {
     setLoading(true);
@@ -100,6 +105,7 @@ const AuthContext = ({ children }) => {
     createUser,
     updateUserInfo,
     loginUser,
+    verifyEmail,
     userDelete,
     logOutUser,
   };

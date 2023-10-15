@@ -6,6 +6,7 @@ import Error from "../../shared/error/Error";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useDelete from "../../../hooks/useDelete";
+import TittleCompo from "../../../components/titleCompo/TittleCompo";
 
 const MyBlogs = () => {
   const { user, loading } = useContext(AuthContextProvider);
@@ -40,12 +41,17 @@ const MyBlogs = () => {
   }
 
   if (!data.success) {
-    return <Error message={data.message} />;
+    return (
+      <>
+        <Error message={data.message} />
+        <TittleCompo title={"My Blogs"}></TittleCompo>
+      </>
+    );
   }
 
-  console.log(data);
   return (
     <section className=" mt-16 mx-auto w-11/12">
+      <TittleCompo title={"My Blogs"}></TittleCompo>
       <h1 className=" text-3xl text-center  font-bold">My Blogs</h1>
       <div className="overflow-x-auto">
         <table className="table">

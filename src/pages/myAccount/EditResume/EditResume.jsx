@@ -13,6 +13,7 @@ import useLoadData from "../../../hooks/useLoadData";
 import Loader from "../../shared/loaders/Loader";
 import usePUTData from "../../../hooks/usePUTData";
 import LoadingButton from "../../../components/buttons/LoadingButton";
+import TittleCompo from "../../../components/titleCompo/TittleCompo";
 const EditResume = () => {
   const { user } = useContext(AuthContextProvider); // auth context provider
 
@@ -83,67 +84,79 @@ const EditResume = () => {
     return <Loader></Loader>;
   }
   return (
-    <section>
-      <div className=" hidden lg:block bg-blue-500 h-10 fixed w-full top-0">
-        <div className="flex items-center h-full px-4 w-4/5 mx-auto">
-          <a className="btn btn-primary btn-sm rounded" href="#personal-info">
-            Personal Information
-          </a>
-          <a className="btn btn-primary btn-sm rounded" href="#social-info">
-            Social Information
-          </a>
-          <a className="btn btn-primary btn-sm rounded" href="#experience">
-            Experience
-          </a>
-          <a className="btn btn-primary btn-sm rounded" href="#skills">
-            Skills
-          </a>
-          <a className="btn btn-primary btn-sm rounded" href="#projects">
-            Projects
-          </a>
-          <a className="btn btn-primary btn-sm rounded" href="#education">
-            Education
-          </a>
+    <>
+      <TittleCompo title={"Edit Resume"}></TittleCompo>
+      <section>
+        <div className=" hidden lg:block bg-blue-500 h-10 fixed w-full top-0">
+          <div className="flex items-center h-full px-4 w-4/5 mx-auto">
+            <a className="btn btn-primary btn-sm rounded" href="#personal-info">
+              Personal Information
+            </a>
+            <a className="btn btn-primary btn-sm rounded" href="#social-info">
+              Social Information
+            </a>
+            <a className="btn btn-primary btn-sm rounded" href="#experience">
+              Experience
+            </a>
+            <a className="btn btn-primary btn-sm rounded" href="#skills">
+              Skills
+            </a>
+            <a className="btn btn-primary btn-sm rounded" href="#projects">
+              Projects
+            </a>
+            <a className="btn btn-primary btn-sm rounded" href="#education">
+              Education
+            </a>
+          </div>
         </div>
-      </div>
 
-      <form
-        className=" w-4/5 mx-auto mt-20"
-        onSubmit={handleSubmit(handleGenarateResume)}
-      >
-        <PersonalInfo
-          resume={data.resume}
-          register={register}
-          errors={errors}
-        ></PersonalInfo>
-        <div className=" divider"></div>
-        <SocialInfo
-          resume={data.resume}
-          register={register}
-          errors={errors}
-        ></SocialInfo>
-        <div className=" divider"></div>
-        <MyExperience
-          experienceFields={experienceFields}
-          setExperienceField={setExperienceField}
-          register={register}
-          errors={errors}
-        ></MyExperience>
-        <div className=" divider"></div>
-        <Skills register={register} errors={errors}></Skills>
-        <div className=" divider"></div>
-        <MyProjects
-          projectsFields={projectsFields}
-          setProjectsField={setProjectsField}
-        ></MyProjects>
-        <MyEducation
-          myEducationFields={myEducationFields}
-          setmyEducationFields={setMyEducationFields}
-        ></MyEducation>
-        {/* loading button */}
-        <LoadingButton loader={putLoader}>Genarate Resume</LoadingButton>
-      </form>
-    </section>
+        <form
+          className=" w-4/5 mx-auto mt-20"
+          onSubmit={handleSubmit(handleGenarateResume)}
+        >
+          <PersonalInfo
+            resume={data.resume}
+            register={register}
+            errors={errors}
+          ></PersonalInfo>
+
+          <div className=" divider"></div>
+
+          <SocialInfo
+            resume={data.resume}
+            register={register}
+            errors={errors}
+          ></SocialInfo>
+
+          <div className=" divider"></div>
+
+          <MyExperience
+            experienceFields={experienceFields}
+            setExperienceField={setExperienceField}
+            register={register}
+            errors={errors}
+          ></MyExperience>
+
+          <div className=" divider"></div>
+
+          <Skills register={register} errors={errors}></Skills>
+
+          <div className=" divider"></div>
+          <MyProjects
+            projectsFields={projectsFields}
+            setProjectsField={setProjectsField}
+          ></MyProjects>
+
+          <MyEducation
+            myEducationFields={myEducationFields}
+            setmyEducationFields={setMyEducationFields}
+          ></MyEducation>
+
+          {/* loading button */}
+          <LoadingButton loader={putLoader}>Genarate Resume</LoadingButton>
+        </form>
+      </section>
+    </>
   );
 };
 
