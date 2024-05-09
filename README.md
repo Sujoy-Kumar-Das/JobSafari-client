@@ -1,5 +1,8 @@
 # JobSafari ( A JobHunting Platform )
 
+<p>Job Safai is a platform to find dream jobs and great hires. Also, you can share helpful career blogs, to help job seekers
+make a better professional career.</p>
+
 ## Live :- https://jobsafariauth.web.app/
 
 ## Server :https://backend-rosy-chi.vercel.app/
@@ -34,7 +37,7 @@ resumes. Also, download their resume in PDF format.
 
 - Clone Project
   ```
-  https://github.com/Sujoy-Kumar-Das/phone-plaza-client
+  https://github.com/Sujoy-Kumar-Das/JobSafari-client/tree/main
   ```
 - Install required npm packages
 
