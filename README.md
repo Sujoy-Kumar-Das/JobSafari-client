@@ -5,7 +5,7 @@ make a better professional career.</p>
 
 ## Live :- https://jobsafariauth.web.app/
 
-## Server :https://backend-rosy-chi.vercel.app/
+## Server :https://job-safari-server-sujoy-kumar-das.vercel.app/
 
 ## Features
 
